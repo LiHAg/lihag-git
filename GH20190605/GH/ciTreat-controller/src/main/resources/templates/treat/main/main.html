@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+
+<style type="text/css">
+
+.divcss1{
+	width:100px;
+	color:blue;
+	font-weight:600;
+}
+.divcss2{
+	width:150px;
+	color:blue;
+	font-weight:600;
+} 
+</style>
+
+<body class="gray-bg">
+	<div class="container-div">
+	<div class="col-sm-12">
+			<div class="row">
+				<div class="col-sm-12 search-collapse">
+					<table class="table table-hover no-margins"
+						style="margin-bottom: 5px;">
+						<tr>
+							<td class="divcss1">患者ID：</td>
+							<td id="patientId" th:text="${pj.patientId}"></td>
+							<td class="divcss1">患者姓名：</td>
+							<td th:text="${pj.patientName}"></td>
+							<td class="divcss1">患者姓别：</td>
+							<td id="sex" th:text="${pj.sex}"></td>
+							<td class="divcss1">治疗状态：</td>
+							<td id="treatStatus" th:text="${pj.treatStatus}"></td>
+						</tr>
+						<tr>
+							<td class="divcss1">治疗头：</td>
+							<td th:text="${pj.treatHead}"></td>
+							<td class="divcss1">治疗模式：</td>
+							<td th:text="${pj.treatType}"></td>
+							<td class="divcss1">计划名称：</td>
+							<td th:text="${pj.planName}"></td>
+							<td class="divcss1">计划时间：</td>
+							<td th:text="${pj.planDate}"></td>
+						</tr>
+						<tr>
+							<td class="divcss1">需治疗次数：</td>
+							<td th:text="${pj.totalNum}"></td>
+							<td class="divcss1">已治疗次数：</td>
+							<td th:text="${pj.treatedNum}"></td>
+							<td class="divcss1">计划剂量：</td>
+							<td th:text="${pj.totalDose}"></td>
+							<td class="divcss1">已完成剂量：</td>
+							<td th:text="${pj.treatedDose}"></td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="row">
+					<div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+						<a class="btn btn-success" onclick="createTask()">
+							<i class="fa fa-plus"></i> 新增治疗
+						</a>
+						<a class="btn btn-primary" onclick="createTask()">
+							<i class="fa fa-plus"></i> 治疗明细
+						</a>
+						<a class="btn btn-info" onclick="completed()">
+							<i class="fa fa-plus"></i> 治疗完成
+						</a>
+						<a class="btn btn-danger" onclick="treatfaild()">
+							<i class="fa fa-plus"></i> 治疗失败
+						</a>
+					</div>
+					<div class="col-sm-12 select-table table-striped">
+						<table id="bootstrap-table" data-mobile-responsive="true"></table>
+					</div>
+				</div>
+		</div>
+	</div>	
+	</div>
+	<div th:include="include :: footer"></div>
+	<script th:inline="javascript">
+		var patientId = [[${patientId}]];
+		var prefix_wf = ctx + "workflow";
+		var prefix = ctx + "treatJnl/treatJnl";
+		var datas = [[${@dict.getType('treat_status')}]];
+		var sexDatas = [[${@dict.getType('sys_user_sex')}]];
+		$(function() {
+			var options = {
+					url: prefix + "/list/" + patientId,
+			        sortOrder: "desc",
+			        modalName: "患者治疗摘要",
+			        columns: [{
+			            checkbox: true
+			        },
+			        {
+			            field: 'busNo',
+			            title: '流水编号',
+			        },
+			        {
+			            field: 'num',
+			            title: '当前次数',
+			        },
+			        {
+			            field: 'startTime',
+			            title: '开始时间',
+			        },
+			        {
+			            field: 'endTime',
+			            title: '结束时间',
+			        },
+			        {
+			         	 field: 'status',
+				         title: '单次治疗状态',
+				         align: 'center',
+		                 formatter: function(value, row, index) {
+		                    return $.table.selectDictLabel(datas, value);
+		                 }
+			        },
+			        {
+			            field: 'taskComment',
+			            title: '任务名称',
+			        },
+			        {
+			            field: 'nodeId',
+			            title: '节点ID',
+			            visible: false,
+			        },
+			        {
+			            field: 'processId',
+			            title: '流程ID',
+			            visible: false,
+			        },
+			        {
+			            field: 'taskId',
+			            title: '流程ID',
+			            visible: false,
+			        },
+			        {
+			            title: '操作',
+			            align: 'center',
+			            formatter: function(value, row, index) {
+			                var actions = [];
+			                if(row.status != 3){
+			                	actions.push('<a class="btn btn-danger btn-xs " href="#" onclick="nextTask(\''+ row.taskComment+ '\',\'' +  row.nodeId+ '\',\'' + row.processId+ '\',\'' + row.taskId + '\')"><i class="fa fa-list-ul"></i>继续治疗</a> ');
+			                }
+			                actions.push('<a class="btn btn-info btn-xs " href="#" onclick="unTreat(\'' + row.busNo + '\')"><i class="fa fa-list-ul"></i>作废</a> ');
+			                return actions.join('');
+			            }
+			        }]
+			    };
+		    $.table.init(options);
+		    
+		    //修改 外部table 状态显示
+		   	var treatStatus = $("#treatStatus").text();
+		   	var tts = $.table.selectDictLabel(datas, treatStatus);
+	   		$("#treatStatus").text('');
+	   		$("#treatStatus").append(tts);
+	   		
+			var sex = $("#sex").text();
+			var sx = $.table.selectDictLabel(sexDatas, sex);
+			$("#sex").text('');
+	   		$("#sex").append(sx);
+		});
+		
+		function createTask(){
+			var doTaskUrl = ctx + "treat/createTask";
+			$.modal.confirm("确定新增治疗吗？", function() {
+				var data = { "pid": patientId};
+	       		$.operate.submit(doTaskUrl, "post", "json", data);
+	    	});
+		}
+		
+		function nextTask(taskComment, nodeId,processId,taskId){
+			var doTaskUrl = prefix_wf + "/doPrepare?nodeId="+nodeId +"&processId="+processId +"&taskId=" + taskId;
+			//var data = { "templateId": templateId, "nodeId": nodeId, "processId": processId};
+	       	$.modal.open(taskComment,doTaskUrl,$(window).width() - 200,$(window).height() - 100);
+		} 
+		
+		//作废
+		function unTreat(busNo) {
+			$.modal.confirm("确定结束当前治疗并删除此记录信息吗？", function() {
+				$.ajax({
+					type : 'post',
+					url: prefix + "/unTreat",
+					data:{ "pid": patientId,"busNo":busNo},
+					success : function(result) {
+						if (result.code == web_status.SUCCESS) {
+		                	$.modal.msgSuccess(result.msg);
+		                	refreshItem();
+		                } else {
+		                	$.modal.msgError(result.msg);
+		                }
+					}
+				});
+			});
+		}
+		
+		//治疗完成
+		function completed(){
+			var doTaskUrl = prefix + "/completed";
+			$.modal.confirm("确定结束当前治疗过程,并标记治疗状态为【治疗完成】状态,忽略所有未完成扫描的剂量,且不能再使用此计划进行对患者的治疗？", 
+					function() {
+				var data = { "pid": patientId};
+	       		$.operate.submit(doTaskUrl, "post", "json", data);
+	    	});
+		}
+		
+		//治疗失败
+		function treatfaild(){
+			var doTaskUrl = prefix + "/treatfaild";
+			$.modal.confirm("确定结束当前治疗过程,并标记当前治疗状态为【治疗失败】状态,,后期不能再使用此计划进行对患者的治疗？", 
+					function() {
+				var data = { "pid": patientId};
+	       		$.operate.submit(doTaskUrl, "post", "json", data);
+	    	});
+		}
+		
+	</script>
+</body>
+</html>

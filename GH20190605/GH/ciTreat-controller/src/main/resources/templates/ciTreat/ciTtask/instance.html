@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg" id="test">
+    <div class="wrapper wrapper-content">
+        <div class="col-sm-12">
+        	<!-- 患者信息start -->
+        	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title"><h5>实例详细信息</h5>
+                            <div class="ibox-tools"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </div></div>
+                        <div class="ibox-content"><div class="row"><div class="col-sm-12">
+                                    <table class="table table-hover margin bottom">
+                                        <thead><tr>
+                                                <th>Tag</th>
+                                                <th>Value</th>
+                                        </tr></thead>
+                                        <tbody><tr th:each="tag : ${jo.keySet()}">
+                                                <td th:text="${tag}"></td>
+                                                <td th:text="${jo.getStr(tag)}"></td>
+                                        </tr></tbody>
+                                    </table>
+            			</div></div></div>
+            </div></div></div>
+        	<!-- 患者信息end -->
+        	
+        
+        	
+            
+            
+            
+            
+        </div>
+    </div>
+</body>
+<div th:include="include :: footer"></div>
+<script>
+    $(".modal").appendTo("body"), $("[data-toggle=popover]").popover(), $(".collapse-link").click(function() {
+        var div_ibox = $(this).closest("div.ibox"),
+        e = $(this).find("i"),
+        i = div_ibox.find("div.ibox-content");
+        i.slideToggle(200),
+        e.toggleClass("fa-chevron-up").toggleClass("fa-chevron-down"),
+        div_ibox.toggleClass("").toggleClass("border-bottom"),
+        setTimeout(function() {
+        	div_ibox.resize();
+        }, 50);
+    }), $(".close-link").click(function () {
+		var div_ibox = $(this).closest("div.ibox");
+		div_ibox.remove()
+	});
+    
+   
+</script>
+</html>

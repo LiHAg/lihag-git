@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.golden.workflow.processjnl.mapper.ProcessJnlMapper">
+
+	<resultMap type="ProcessJnl" id="ProcessJnlResult">
+		<result property="templateId"       	column="TEMPLATEID"      />
+		<result property="processId"       		column="PROCESSID"      />
+		<result property="processName"    		column="PROCESSNAME"   />
+		<result property="processState"     	column="PROCESSSTATE"    />
+		<result property="processComment"     	column="PROCESSCOMMENT"    />
+		<result property="startedTime"       	column="STARTEDTIME"      />
+		<result property="completedTime"    	column="COMPLETEDTIME"   />
+		<result property="busNo"       			column="BUSNO"      />
+		<result property="initiatorId"     		column="INITIATORID"    />
+		<result property="contextData"    		column="CONTEXTDATA"   />
+	</resultMap>
+	
+	<select id="getProcessJnlList" parameterType="String" resultMap="ProcessJnlResult">
+		select TEMPLATEID, PROCESSID, PROCESSNAME,  PROCESSSTATE, PROCESSCOMMENT, STARTEDTIME, COMPLETEDTIME, BUSNO, INITIATORID, CONTEXTDATA from WF_PROCESSJNL
+		where BUSNO = #{busNo}
+	</select>
+	
+	
+	<select id="getProcessInfo" parameterType="ProcessJnl" resultMap="ProcessJnlResult">
+		select TEMPLATEID, PROCESSID, PROCESSNAME,  PROCESSSTATE, PROCESSCOMMENT, STARTEDTIME, COMPLETEDTIME, BUSNO, INITIATORID, CONTEXTDATA from WF_PROCESSJNL
+		where PROCESSID = #{processId}
+	</select>
+	
+	<insert id="addProcessInfo" parameterType="ProcessJnl">
+		insert into WF_PROCESSJNL(TEMPLATEID, PROCESSID, PROCESSNAME,  PROCESSSTATE, PROCESSCOMMENT, STARTEDTIME, COMPLETEDTIME, BUSNO, INITIATORID, CONTEXTDATA) values 
+ 		(#{templateId},#{processId},#{processName},#{processState},#{processComment},#{startedTime},#{completedTime},#{busNo},#{initiatorId},#{contextData})
+	</insert>
+	
+	<update id="updateProcessInfo" parameterType="ProcessJnl">
+		update WF_PROCESSJNL
+		<set>
+ 			<if test="completedTime != null and completedTime != ''">COMPLETEDTIME = #{completedTime},</if>
+ 			<if test="processState != null">PROCESSSTATE = #{processState},</if>
+ 		</set>
+ 		where PROCESSID = #{processId}
+	</update>
+	
+</mapper> 

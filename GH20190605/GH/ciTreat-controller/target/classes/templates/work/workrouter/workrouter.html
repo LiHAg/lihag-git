@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	
+	<div class="container-div">
+		<div class="row">
+	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+	        	<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:user:add">
+	                <i class="fa fa-plus"></i> 新增
+	            </a>
+	        </div>
+	        
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+	
+	<div th:include="include :: footer"></div>
+	<script th:inline="javascript">
+		var datas = [[${@dict.getType('sys_yes_no')}]];
+		var datas2 = [[${@dict.getType('dealFlag')}]];
+		var prefix = ctx + "work/workrouter";
+		$(function() {
+		    var options = {
+		        url: prefix + "/list",
+		        sortName: "taskCode",
+		        sortOrder: "desc",
+		        modalName: "服务代码",
+		        search: false,
+		        showExport: false,
+		        escape: true,
+		        columns: [{
+		            checkbox: false
+		        },
+		        {
+		            field: 'routerCode',
+		            title: '路由代码'
+		        },
+		        {
+		            field: 'routerName',
+		            title: '路由名称'
+		        },
+		        {
+		            field: 'routerExplain',
+		            title: '路由说明',
+		        },
+		        {
+		            field: 'validFg',
+		            title: '有效标志',
+		            align: 'center',
+	                formatter: function(value, row, index) {
+	                    return $.table.selectDictLabel(datas, value);
+	                 }
+		        },
+		        {
+		            field: 'taskCode',
+		            title: '任务代码',
+		        },
+		        {
+		            field: 'dealFg',
+		            title: '处理方式',
+		            align: 'center',
+	                formatter: function(value, row, index) {
+	                    return $.table.selectDictLabel(datas2, value);
+	                 }
+		        },
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		                var actions = [];
+		                actions.push('<a class="btn btn-success btn-xs ' + row.taskCode + '" href="#" onclick="$.operate.edit(\'' + row.routerCode + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+		                actions.push('<a class="btn btn-danger btn-xs " href="#" onclick="$.operate.remove(\'' + row.routerCode + '\')"><i class="fa fa-remove"></i>删除</a>');
+		                return actions.join('');
+		            }
+		        }]
+		    };
+		    $.table.init(options);
+		});
+	</script>
+</body>
+</html>

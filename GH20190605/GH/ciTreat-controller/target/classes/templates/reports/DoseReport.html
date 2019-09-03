@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+
+<body class="gray-bg" id="test">
+	<div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 base">
+				<div class="baseList">
+					<ul>
+						<li style="">治疗室：<select name="room">
+								<option value=""></option>
+								<option th:text="治疗室一" th:value="room1"></option>
+								<option th:text="治疗室二" th:value="room2"></option>
+								<option th:text="治疗室三" th:value="room3"></option>
+						</select></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="col-sm-12 base">
+				<div class="col-sm-6">
+					<div id="demo-linear" class="echarts" echarts-type="bar" 
+						echarts-title="剂量统计" 
+						echarts-theme="macarons" 
+						echarts-url="/doseReports/doseReportView" 
+						echarts-x-axis-name="日期"
+						echarts-y-axis-name="剂量值" 
+						style="width: 980px; height: 400px;"></div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</body>
+<div th:include="include :: footer"></div>
+<script src="/echarts/echarts.min.js"></script>
+<script src="/echarts/theme/macarons.js"></script>
+<!-- 必要文件：echarts.ajax自定义封装 -->
+<script src="/echarts/echarts.ajax.js"></script>
+<script src="/echarts/ecStat.min.js"></script>
+<script th:inline="javascript">
+	
+</script>
+
+<style type="text/css">
+</style>
+</html>

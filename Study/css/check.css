@@ -1,0 +1,38 @@
+.enable{
+    height: 30px;
+    padding-left: 83px;
+    position: relative;
+}
+.checkbox{
+    height: 22px;
+    width: 22px;
+    float: left;
+    margin: 0;
+    margin-left: 5px;
+}
+input[type="checkbox"]:checked + label::before {
+    content: "\2714";
+    background-color: #3e62a5;
+    text-align: center;
+    font-size: 16px;
+    color: white;
+    display: block;
+}
+
+/*lable标签的大小、位置、背景颜色更改，在css选择时，“+”代表相邻元素，即当前元素的下一元素*/
+#color-input-red +label{
+    display: block;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 0px;
+    border: 1px solid #3e62a5;
+}
+
+/*当input框为选中状态时，lable标签的样式，其中在css选择时，“：”表示当前input框的值，即checked；
+    该部分主要对显示的“对号”的大限居中方式，显示颜色进行了设置*/
+
+input[type=checkbox]{
+    visibility: hidden;
+}

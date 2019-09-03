@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ciTreat.patient.mapper.PatientJnlMapper">
+
+	<resultMap type="PatientJnl" id="PatientJnlResult">
+		<result property="patientId"       	column="PATIENTID"      />
+		<result property="beamStatus"       	column="BEAM_STATUS"      />
+		<result property="treatStatus"       	column="TREAT_STATUS"      />
+		<result property="totalNum"    		column="TOTALNUM"   />
+		<result property="treatedNum"     	column="TREATEDNUM"    />
+		<result property="createTime"     	column="CREATE_TIME"    />
+		<result property="taskSrlNum"     	column="TASKSRLNUM"    />
+		<result property="patientName"      column="PATIENTNAME"      />
+		<result property="sex"       		column="SEX"      />
+		<result property="planName"    		column="PLAN_NAME"   />
+		<result property="planDate"     	column="PLAN_DATE"    />
+		<result property="treatType"     	column="TREAT_TYPE"    />
+		<result property="treatHead"     	column="TREAT_HEAD"    />
+		<result property="totalDose"     	column="TOTALDOSE"    />
+		<result property="treatedDose"     	column="TREATEDDOSE"    />
+		<result property="testFlag"     	column="TESTFLAG"    />
+	</resultMap>
+	
+	
+	<select id="selectPatientJnlList" parameterType="PatientJnl" resultMap="PatientJnlResult">
+		SELECT PATIENTID, BEAM_STATUS, TREAT_STATUS, TOTALNUM, TREATEDNUM, TASKSRLNUM, CREATE_TIME, PATIENTNAME, SEX, PLAN_NAME, PLAN_DATE, TREAT_TYPE, TREAT_HEAD, TOTALDOSE, TREATEDDOSE ,TESTFLAG FROM PATIENT_JNL
+		<where>
+			<if test="patientId != null and patientId != ''">
+				AND PATIENTID = #{patientId}
+			</if>
+			<if test="patientName != null and patientName != ''">
+				AND PATIENTNAME = #{patientName}
+			</if>
+			<if test="beamStatus != null and beamStatus != ''">
+				AND BEAM_STATUS = #{beamStatus}
+			</if>
+			<if test="testFlag != null and testFlag != ''">
+				AND TESTFLAG = #{testFlag}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectPatientJnlListByPID" parameterType="PatientJnl" resultMap="PatientJnlResult">
+		SELECT PATIENTID, BEAM_STATUS, TREAT_STATUS, TOTALNUM, TREATEDNUM, TASKSRLNUM, CREATE_TIME, PATIENTNAME, SEX, PLAN_NAME, PLAN_DATE, TREAT_TYPE, TREAT_HEAD, TOTALDOSE, TREATEDDOSE,TESTFLAG FROM PATIENT_JNL 
+		WHERE PATIENTID = #{patientId}  
+	</select>
+	
+	<select id="selectPatientJnlByPID" parameterType="PatientJnl" resultMap="PatientJnlResult">
+		SELECT PATIENTID, BEAM_STATUS, TREAT_STATUS, TOTALNUM, TREATEDNUM, TASKSRLNUM, CREATE_TIME, PATIENTNAME, SEX, PLAN_NAME, PLAN_DATE, TREAT_TYPE, TREAT_HEAD, TOTALDOSE, TREATEDDOSE,TESTFLAG FROM PATIENT_JNL 
+		WHERE PATIENTID = #{patientId}  
+	</select>
+	<select id="selectPatientJnlByIdPlan" parameterType="PatientJnl" resultMap="PatientJnlResult">
+		SELECT PATIENTID, BEAM_STATUS, TREAT_STATUS, TOTALNUM, TREATEDNUM, TASKSRLNUM, CREATE_TIME, PATIENTNAME, SEX, PLAN_NAME, PLAN_DATE, TREAT_TYPE, TREAT_HEAD, TOTALDOSE, TREATEDDOSE,TESTFLAG FROM PATIENT_JNL 
+		WHERE PATIENTID = #{patientId} and PLAN_NAME = #{planName}
+	</select>
+
+	<update id="updatePatientJnl" parameterType="PatientJnl">
+ 		update PATIENT_JNL
+ 		<set>
+ 			<if test="treatedNum != null and taskSrlNum != ''">TREATEDNUM = #{treatedNum},</if>
+ 			<if test="taskSrlNum != null and taskSrlNum != ''">TASKSRLNUM = #{taskSrlNum},</if>
+ 			<if test="beamStatus != null and beamStatus != ''">BEAM_STATUS = #{beamStatus},</if>
+ 			<if test="treatStatus != null and treatStatus != ''">TREAT_STATUS = #{treatStatus},</if>
+ 			UPDATE_TIME = sysdate()
+ 		</set>
+ 		where PATIENTID = #{patientId}
+	</update>
+	
+	<update id="updatePatJnlTreatedNum">
+ 		update PATIENT_JNL set TREATEDNUM = #{treatedNum}
+ 		where PATIENTID = #{patientId}
+	</update>
+	
+</mapper> 

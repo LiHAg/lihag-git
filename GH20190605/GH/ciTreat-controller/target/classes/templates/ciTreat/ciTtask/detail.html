@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg" id="test">
+    <div class="wrapper wrapper-content">
+        <div class="col-sm-12">
+        	<!-- 患者信息start -->
+        	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title"><h5>详细信息</h5>
+                            <div class="ibox-tools"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </div></div>
+                        <div class="ibox-content"><div class="row"><div class="col-sm-12">
+                                    <table class="table table-hover margin bottom">
+                                        <thead><tr>
+                                                <th>患者ID</th>
+                                                <th>患者名称</th>
+                                                <th>患者性别</th>
+                                                <th>出生日期</th>
+                                                <th>检查日期</th>
+                                                <th>检查描述</th>
+                                                <th>类型</th>
+                                                <th>实例个数</th>
+                                        </tr></thead>
+                                        <tbody><tr th:each="study : ${stl}">
+                                                <td th:text="${study.patientID}"></td>
+                                                <td th:text="${study.patientName}"></td>
+                                                <td th:text="${study.patientGender}"></td>
+                                                <td th:text="${study.patientBirthDate}"></td>
+                                                <td th:text="${study.studyDate}"></td>
+                                                <td th:text="${study.studyDescription}"></td>
+                                                <td th:class="${study.modalitiesInStudy}"></td> 
+                                                 <td th:class="${study.studyRelatedInstances}"></td> 
+                                        </tr></tbody>
+                                    </table>
+            			</div></div></div>
+            </div></div></div>
+        	<!-- 患者信息end -->
+        	
+        	
+        	<!-- Series信息start -->
+        	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title"><h5>Series信息</h5>
+                            <div class="ibox-tools"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </div></div>
+                        <div class="ibox-content"><div class="row"><div class="col-sm-12">
+                                    <table class="table table-hover margin bottom">
+                                        <thead><tr>
+                                                <th>seriesIUID</th>
+                                                <th>seriesNumber</th>
+                                                <th>seriesDate</th>
+                                                <th>seriesTime</th>
+                                                <th>seriesDescription</th>
+                                                <th>modality</th>
+                                                <th>numberOfInstances</th>
+                                                <th>bodyPartExamined</th>
+                                        </tr></thead>
+                                        <tbody><tr th:each="sm : ${sml}">
+                                                <td th:text="${sm.seriesIUID}"></td>
+                                                <td th:text="${sm.seriesNumber}"></td>
+                                                <td th:text="${sm.seriesDate}"></td>
+                                                <td th:text="${sm.seriesTime}"></td>
+                                                <td th:text="${sm.seriesDescription}"></td>
+                                                <td th:text="${sm.modality}"></td>
+                                                <td th:class="${sm.numberOfInstances}"></td> 
+                                                <td th:class="${sm.bodyPartExamined}"></td> 
+                                        </tr></tbody>
+                                    </table>
+            			</div></div></div>
+            </div></div></div>
+        	<!-- Series信息end -->
+        	
+        	
+        	<!-- Instance信息start -->
+        	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title"><h5>Instance信息</h5>
+                            <div class="ibox-tools"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </div></div>
+                        <div class="ibox-content"><div class="row"><div class="col-sm-12">
+                                    <table class="table table-hover margin bottom">
+                                        <thead><tr>
+                                                <th>sopIUID</th>
+                                                <th>instanceNumber</th>
+                                                <th>sopClassUID</th>
+                                                <th>numberOfFrames</th>
+                                                <th>OP</th>
+                                        </tr></thead>
+                                        <tbody><tr th:each="im : ${iml}">
+                                                <td th:text="${im.sopIUID}"></td>
+                                                <td th:text="${im.instanceNumber}"></td>
+                                                <td th:text="${im.sopClassUID}"></td>
+                                                <td th:text="${im.numberOfFrames}"></td>
+                                                <td><a href="#" title="look detail" th:onclick="$.operate.detail([[${im.sopIUID}]]);"><img src="../../../img/dicom_file.png" style="width: 16px; height: 16px; vertical-align: middle;" title="Display DICOM attributes from file"></a></td>
+                                        </tr></tbody>
+                                    </table>
+            			</div></div></div>
+            </div></div></div>
+        	<!-- Instance信息end onclick="$.operate.detail()-->
+        	
+        	
+            
+            
+            
+            
+        </div>
+    </div>
+</body>
+<div th:include="include :: footer"></div>
+<script>
+	$.table._option.modalName = "实例";
+	$.table._option.detailUrl = ctx + "ciTreat/ciTtask/instance/{id}";
+
+    $(".modal").appendTo("body"), $("[data-toggle=popover]").popover(), $(".collapse-link").click(function() {
+        var div_ibox = $(this).closest("div.ibox"),
+        e = $(this).find("i"),
+        i = div_ibox.find("div.ibox-content");
+        i.slideToggle(200),
+        e.toggleClass("fa-chevron-up").toggleClass("fa-chevron-down"),
+        div_ibox.toggleClass("").toggleClass("border-bottom"),
+        setTimeout(function() {
+        	div_ibox.resize();
+        }, 50);
+    }), $(".close-link").click(function () {
+		var div_ibox = $(this).closest("div.ibox");
+		div_ibox.remove()
+	});
+    
+
+
+</script>
+</html>

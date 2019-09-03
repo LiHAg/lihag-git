@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<style>
+
+.icss1{
+	font-style:normal;
+	color:crimson;
+	font-weight:600;
+}
+.icss2{
+	font-style:normal;
+	font-weight:600;
+}
+
+</style>
+
+<body class="white-bg">
+	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+		<form id="form-patient-validate">
+			<input name="PROCESSID"  type="hidden"  th:value="${PROCESSID}" />
+			<input name="NODEID"  type="hidden"  th:value="${NODEID}" />
+			<input name="TASKID"  type="hidden"  th:value="${TASKID}" />
+		</form>
+		<div class="col-sm-12">
+			<br><br><br><br><br>
+			<center style="font-size: -webkit-xxx-large;">
+				<ul >
+					<li>等待TCP上【 <i th:text="${msg}" class="icss1"></i>】按钮按下。</li>
+				</ul>
+			</center>
+			
+		</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript">
+		
+		var prefix = ctx + "prework/beam/commitProcessTask";
+		function submitHandler() {
+			$.operate.save(prefix, $('#form-patient-validate').serialize());
+		}
+	</script>
+</body>
+</html>

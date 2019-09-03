@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight ibox-content"style="height: 100%" >
+ 		<form class="form-horizontal m" id="form-jxglq-add">
+ 			<div class="form-group" style="display:none;">
+				<label class="col-sm-3 control-label ">设备ID：</label>
+				<div class="col-sm-8">
+					<input style="width:20%" type="text" id="deviceId" name="deviceId" th:value="${deviceId}"  readonly/>
+				</div>
+			</div>
+ 			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">设备名称：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" id="deviceName" name="deviceName" th:value="${deviceName}" readonly/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">空位：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="Vacancy" name="Vacancy" th:value="${Vacancy}"/>
+				</div>
+				<label class="col-sm-2 control-label ">运动状态：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="actionStatus" name="actionStatus" th:value="${actionStatus}"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">MRF4：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="mrf4" name="mrf4" th:value="${mrf4}"/>
+				</div>
+				<label class="col-sm-2 control-label ">RF30：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="rf30" name="rf30" th:value="${rf30}"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">RF40：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="rf40" name="rf40" th:value="${rf40}"/>
+				</div>
+				<label class="col-sm-2 control-label ">RF50：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="rf50" name="rf50" th:value="${rf50}"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">RF60：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="rf60" name="rf60" th:value="${rf60}"/>
+				</div>
+				<label class="col-sm-2 control-label ">RF70：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="rf70" name="rf70" th:value="${rf70}"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">RF80：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="rf80" name="rf80" th:value="${rf80}"/>
+				</div>
+				<label class="col-sm-2 control-label ">RF90：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="rf90" name="rf90" th:value="${rf90}"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">RF100：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="rf100" name="rf100" th:value="${rf100}"/>
+				</div>
+				<label class="col-sm-2 control-label ">RF110：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="rf110" name="rf110" th:value="${rf110}"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">RF120：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="rf120" name="rf120" th:value="${rf120}"/>
+				</div>
+				<label class="col-sm-2 control-label ">RF130：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="rf130" name="rf130" th:value="${rf130}"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">RF140：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="rf140" name="rf140" th:value="${rf140}"/>
+				</div>
+				<label class="col-sm-2 control-label ">RF150：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="rf150" name="rf150" th:value="${rf150}"/>
+				</div>
+			</div>
+		</form>
+ 	</div>
+	<div th:include="include :: footer"></div>
+	<script th:inline="javascript">
+	var prefix = ctx + "prework/device";
+	
+	function submitHandler() {
+		/* var list=document.getElementById("form-dev-add");
+		var array=[]; //定义一个对象数据
+		var obj = {};
+		for (var i = 0;i < list.length;i++){
+			var key = list[i].name;
+			var value = list[i].value;
+			obj[key] = value;
+		}
+		var datas = JSON.stringify(obj);
+		alert(datas);
+        if ($.validate.form()) {
+        	$.operate.post(prefix + "/commitDevCalibration", datas);
+        } */
+        
+      	//传入form参数
+      	var data = new Object();
+        data.deviceId = $('#deviceId').val();
+        var serializeParameters=$('#form-jxglq-add').serializeArray();
+        var paraMap = {};
+        for (var i = 0; i < serializeParameters.length; i++) {
+        	paraMap[serializeParameters[i].name]=serializeParameters[i].value;
+        }
+        data.formData = paraMap;
+		$.operate.savee(prefix + "/commitDevCalibration", data);
+    }
+	
+	</script>
+</body>
+</html>

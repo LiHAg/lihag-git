@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.golden.workflow.router.mapper.WorkRouterMapper">
+
+	<resultMap type="WorkRouter" id="WorkRouterResult">
+		<result property="routerCode"       	column="ROUTER_CODE"      />
+		<result property="routerName"       		column="ROUTER_NAME"      />
+		<result property="routerExplain"    		column="ROUTER_EXPLAIN"   />
+		<result property="validFg"     		column="VALID_FG"    />
+		<result property="taskCode"     	column="TASK_CODE"    />
+		<result property="validFg"       	column="VALID_FG"      />
+		<result property="dealFg"    	column="DEAL_FG"   />
+	</resultMap>
+	
+	
+	<select id="selectWorkRouter" parameterType="WorkRouter" resultMap="WorkRouterResult">
+		select ROUTER_CODE, ROUTER_NAME, ROUTER_EXPLAIN, VALID_FG, TASK_CODE, VALID_FG, DEAL_FG from WORK_ROUTER
+		where ROUTER_CODE = #{routerCode}
+	</select>
+	
+	<select id="selectWorkRouterList" parameterType="WorkRouter" resultMap="WorkRouterResult">
+		select ROUTER_CODE, ROUTER_NAME, ROUTER_EXPLAIN, VALID_FG, TASK_CODE, VALID_FG, DEAL_FG from WORK_ROUTER
+	</select>
+
+	
+</mapper> 

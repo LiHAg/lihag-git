@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="user-form">
+					<div class="select-list">
+						<ul><li>患者ID：<input type="text" name="patientId"/></li>
+							<li>
+								治疗状态：<select name="status" th:with="type=${@dict.getType('treat_status')}">
+									<option value="">所有</option>
+									<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+								</select>
+							</li>
+							<li>
+								标定状态：<select name="status" th:with="type=${@dict.getType('beam_status_bd')}">
+									<option value="">所有</option>
+									<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+								</select>
+							</li>
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+							    <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+							
+			<div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+	        	<a class="btn btn-success" onclick="doTask()" >
+	                <i class="fa fa-plus"></i> 结束治疗
+	            </a>
+	            <a class="btn btn-danger" onclick="doTask()" >
+	                <i class="fa fa-plus"></i> 治疗失败
+	            </a>
+	        </div>
+				<div class="col-sm-12 select-table table-striped"><table id="bootstrap-table" data-mobile-responsive="true"></table></div>
+		</div>
+	</div>
+	
+	<div th:include="include :: footer"></div>
+	<script th:inline="javascript">
+		var prefix = ctx + "patient/patientJnl";
+		var prefix_beam = ctx + "prework/beam"
+		var treatDatas = [[${@dict.getType('treat_status')}]];
+		var beamDatas = [[${@dict.getType('beam_status_bd')}]];
+		
+		$(function() {
+		    var options = {
+		        url: prefix + "/list",
+		        sortName: "createTime",
+		        sortOrder: "desc",
+		        modalName: "患者流水",
+		        search: false,
+		        showExport: false,
+		        escape: true,
+		        columns: [{
+		            checkbox: true
+		        },
+		        {
+		            field: 'patientId',
+		            title: '患者ID'
+		        },
+		        {
+		            field: 'patientName',
+		            title: '患者姓名'
+		        },
+		        {
+		            field: 'planName',
+		            title: '计划名称'
+		        },
+		        {
+		            field: 'totalNum',
+		            title: '需治疗次数'
+		        },
+		        {
+		            field: 'treatedNum',
+		            title: '已治疗次数',
+		        },
+		        {
+		            field: 'treatStatus',
+		            title: '治疗状态',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		                 return $.table.selectDictLabel(treatDatas, value);
+		            }	
+		        },
+		        {
+		            field: 'beamStatus',
+		            title: '标定状态',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		                 return $.table.selectDictLabel(beamDatas, value);
+		            }	
+		        },
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		                var actions = [];
+		                if(row.treatStatus != 3 && row.treatStatus != 2){
+		                	actions.push('<a class="btn btn-danger btn-xs " href="#" onclick="treat(\'' + row.patientId + '\')"><i class="fa fa-list-ul"></i>加载计划</a> ');
+		                }
+		                actions.push('<a class="btn btn-info btn-xs " href="#" onclick="history(\'' + row.patientId + '\')"><i class="fa fa-list-ul"></i>查看治疗报告</a> ');
+		                actions.push('<a class="btn btn-primary btn-xs " href="#" onclick="beam(\'' + row.patientId + '\',\'' +  row.planName+ '\')"><i class="fa fa-list-ul"></i>每日标定</a> ');
+		                return actions.join('');
+		            }
+		        }]
+		    };
+		    $.table.init(options);
+		});
+		
+		/* 每日标定-跳转 */
+		function beam(patientId,planName) {
+			 var url = prefix_beam + '/beamJnl?patientId=' + patientId + "&planName=" + planName;
+			 createMenuItem(url,"标定测试");
+		}
+		
+		function treat(patientId) {
+		    var url = prefix + '/treat/' + patientId;
+		    //$.modal.openFull("治疗实施",url);
+		    createMenuItem(url,"治疗实施");
+		}
+		
+		function history(patientId) {
+		    var url = prefix + '/history/' + patientId;
+		    //$.modal.openFull("历史治疗信息",url);
+		    createMenuItem(url,"历史治疗信息");
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.golden.workflow.taskjnl.mapper.TaskJnlMapper">
+
+	<resultMap type="TaskJnl" id="TaskJnlResult">
+		<result property="templateId"       column="TEMPLATEID"      />
+		<result property="templateName"     column="TEMPLATENAME"      />
+		<result property="processId"    	column="PROCESSID"   />
+		<result property="processName"    	column="PROCESSNAME"   />
+		<result property="nodeId"     		column="NODEID"    />
+		<result property="taskId"   		column="TASKID"    />
+		<result property="action"       	column="ACTION"      />
+		<result property="taskName"    		column="TASKNAME"   />
+		<result property="taskState"     	column="TASKSTATE"    />
+		<result property="taskComment"     	column="TASKCOMMENT"    />
+		<result property="busNo"       		column="BUSNO"      />
+		<result property="executorId"    	column="EXECUTORID"   />
+		<result property="createdTime"     	column="CREATEDTIME"    />
+		<result property="startedTime"      column="STARTEDTIME"      />
+		<result property="completedTime"    column="COMPLETEDTIME"   />
+	</resultMap>
+	
+	<select id="getTaskJnlList" resultMap="TaskJnlResult">
+		select TEMPLATEID, TEMPLATENAME, PROCESSID, PROCESSNAME,NODEID, TASKID,ACTION, TASKNAME, TASKSTATE, TASKCOMMENT, BUSNO,EXECUTORID, CREATEDTIME,COMPLETEDTIME from WF_TASKJNL
+		where PROCESSID = #{processId}
+	</select>
+	
+	<select id="getTaskJnl" resultMap="TaskJnlResult">
+		select TEMPLATEID, TEMPLATENAME, PROCESSID, PROCESSNAME,NODEID, TASKID,ACTION, TASKNAME, TASKSTATE, TASKCOMMENT, BUSNO,EXECUTORID, CREATEDTIME,COMPLETEDTIME from WF_TASKJNL
+		where TASKID = #{taskId}
+	</select>
+	
+	<insert id="addTaskInfo" parameterType="TaskJnl" >
+ 		insert into WF_TASKJNL(TEMPLATEID, TEMPLATENAME, PROCESSID, PROCESSNAME,NODEID, TASKID,ACTION, TASKNAME, TASKSTATE, TASKCOMMENT, BUSNO,EXECUTORID, CREATEDTIME,COMPLETEDTIME) values 
+ 		(#{templateId},#{templateName},#{processId},#{processName},#{nodeId},#{taskId},#{action},#{taskName},#{taskState},#{taskComment},#{busNo},#{executorId},#{createdTime},#{completedTime})
+	</insert>
+	
+	<update id="updateTaskJnl" parameterType="TaskJnl" >
+ 		update WF_TASKJNL set
+ 			COMPLETEDTIME = #{completedTime},
+ 			TASKSTATE = #{taskState}
+ 		where TASKID = #{taskId}
+	</update>
+	
+</mapper> 

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link th:href="@{/ajax/libs/jquery-layout/jquery.layout-latest.css}" rel="stylesheet"/>
+<link th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
+
+<body class="gray-bg">
+	<div class="container-div ui-layout-center">
+		<div class="row">
+			<div class="col-sm-12 search-collapse" >
+			 	<div class="ibox-content" style="padding: 1px 1px 1px 1px;">
+					 <table class="table table-hover margin bottom" style="margin-bottom: 5px;">
+                             <tr>
+                                 <td>任务代码：</td><td th:text="${taskCode}"></td>
+                                 <td>任务序号：</td><td th:text="${taskSrlNum}">xxx</td>
+                                 <td>....：</td><td >xxx</td>
+                                 <td>....：</td><td >xxx</td>
+                             </tr>
+                      </table>
+                  </div>
+			</div>
+			
+	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+	        	<a class="btn btn-success" onclick="" >
+	                <i class="fa fa-plus"></i> 预留
+	            </a>
+	        </div>
+	        
+	        <div class="col-sm-12 select-table table-striped">
+			    <table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+	
+	<div th:include="include :: footer"></div>
+	<script th:src="@{/ajax/libs/jquery-layout/jquery.layout-latest.js}"></script>
+	<script th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
+	<script th:inline="javascript">
+		var datas = [[${@dict.getType('work_status')}]];
+		//var patientId = [[${patientId}]];
+		var prefix = ctx + "patient/citreat/work";
+		var taskCode = [[${taskCode}]];
+		var taskSrlNum = [[${taskSrlNum}]];
+		
+		
+		$(function() {
+			console.log("------1--------");
+			console.log($("#taskSrlNum").value);
+			console.log("-------2-------");
+			var options = {
+			        //url: prefix2 + "/list/" + $("#patientId").text(),
+			        url: prefix + "/job/joblist/"+ taskCode + "/" + taskSrlNum,
+			        sortName: "jobNo",
+			        sortOrder: "asc",
+			        modalName: "作业跟踪",
+					queryParams: queryParams,
+			        search: false,
+			        escape: true,
+			        pageSize: 10,
+			        showSearch: false,
+			        showColumns: false,
+			        showToggle: false,
+			        showExport: false,
+			        
+			        columns: [{
+			            checkbox: false
+			        },
+			        {
+			            field: 'jobNo',
+			            title: '作业序号'
+			        },
+			        {
+			            field: 'jobExplain',
+			            title: '作业描述'
+			        },
+			        {
+			            field: 'startTime',
+			            title: '开始时间',
+			        },
+			        {
+			            field: 'endTime',
+			            title: '结束时间',
+			        },
+			        {
+			        	 field: 'status',
+				         title: '状态',
+				         align: 'center',
+		                 formatter: function(value, row, index) {
+		                    return $.table.selectDictLabel(datas, value);
+		                 }
+			        },
+			        {
+			            title: '操作',
+			            align: 'center',
+			            formatter: function(value, row, index) {
+			                var actions = [];
+			                if(row.status==0 && row.jobType==1){
+			                	actions.push('<a class="btn btn-success btn-xs ' + row.jobNo + '" href="#" onclick="$.operate.edit(\'' + row.jobNo + '\')"><i class="fa fa-edit"></i>下一步</a> ');
+			                }
+			                return actions.join('');
+			            }
+			        }]
+			    };
+		    $.table.init(options);
+		});
+		
+		function queryParams(params) {
+			return {
+				taskCode:       $("#taskCode").val(),
+				taskSrlNum:       $("#taskSrlNum").val()
+			};
+		}
+		
+		function doTask(){
+			console.log("taskSrlNum=" + taskSrlNum);
+			var doTaskUrl = prefix + "/dotask";
+			$.modal.confirm("确定启动治疗吗？", function() {
+				var data = { "pid": patientId,"tsn": taskSrlNum };
+           		$.operate.submit(doTaskUrl, "post", "json", data);
+        	});
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ciTreat.quality.mapper.DailyCheckFlowMeterMapper">
+
+	<resultMap type="DailyCheckFlowMeter" id="DailyCheckyFlowMeterMapperResult">
+		<result property="flowMeterId"       	column="FLOWMETER_ID"      />
+		<result property="createTime"      column="CREATE_TIME"      />
+		<result property="checkStatus"    		column="CHECKSTATUS"   />
+		<result property="treatMentId"     	column="TREATMENT_ID"    />
+	</resultMap>
+	
+	<select id="selectFlowMeter" parameterType="String" resultMap="DailyCheckyFlowMeterMapperResult">
+		select * from check_item_jnl where TREATMENT_ID = #{treatMentId}
+	</select>
+	
+	<insert id="insertDailyCheckFlowMeter" parameterType="DailyCheckFlowMeter">
+		insert into check_item_jnl(
+ 			FLOWMETER_ID,
+ 			CREATE_TIME,
+ 			CHECKSTATUS,
+ 			TREATMENT_ID
+ 		)values(
+ 			#{flowMeterId},
+ 			#{createTime},
+ 			#{checkStatus},
+ 			#{treatMentId}
+ 		)
+	</insert>
+
+</mapper> 

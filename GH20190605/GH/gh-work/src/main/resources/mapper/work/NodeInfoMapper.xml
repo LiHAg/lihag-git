@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.golden.workflow.nodeinfo.mapper.NodeInfoMapper">
+
+	<resultMap type="NodeInfo" id="NodeInfoResult">
+		<result property="templateId"       column="TEMPLATEID"      />
+		<result property="nodeId"       	column="NODEID"      />
+		<result property="nodeType"    		column="NODETYPE"   />
+		<result property="nodeName"     	column="NODENAME"    />
+		<result property="nodeComment"     	column="NODECOMMENT"    />
+		<result property="firstManualTask"  column="FIRSTMANUALTASK"    />
+		<result property="preNodeId"       	column="PRENODEID"      />
+		<result property="nextNodeId"    	column="NEXTNODEID"   />
+		<result property="action"    		column="ACTION"   />
+		<result property="initAction"    		column="INITACTION"   />
+		<result property="inputPageName"    		column="INPUTPAGENAME"   />
+		
+	</resultMap>
+	
+	
+	<select id="getStartNode" parameterType="NodeInfo" resultMap="NodeInfoResult">
+		select TEMPLATEID, NODEID, NODETYPE, NODENAME, NODECOMMENT, FIRSTMANUALTASK,PRENODEID, NEXTNODEID, ACTION,INITACTION, INPUTPAGENAME from WF_NODEINFO
+		where TEMPLATEID = #{templateId} and NODETYPE = 'START_NODE';
+	</select>
+	
+	<!-- <select id="getNodeInfo" parameterType="NodeInfo" resultMap="NodeInfoResult">
+		select TEMPLATEID, NODEID, NODETYPE, NODENAME, NODECOMMENT, PRENODEID, FIRSTMANUALTASK, NEXTNODEID, ACTION from WF_NODEINFO
+		where TEMPLATEID = #{templateId} and NODEID = #{nodeId}
+	</select> -->
+	
+	<select id="getNodeInfo" parameterType="NodeInfo" resultMap="NodeInfoResult">
+		select TEMPLATEID, NODEID, NODETYPE, NODENAME, NODECOMMENT, PRENODEID, FIRSTMANUALTASK, NEXTNODEID, ACTION, INITACTION, INPUTPAGENAME from WF_NODEINFO
+		where NODEID = #{nodeId}
+	</select>
+
+	<select id="getNodeInfoList" parameterType="NodeInfo" resultMap="NodeInfoResult">
+		select TEMPLATEID, NODEID, NODETYPE, NODENAME, NODECOMMENT, PRENODEID, FIRSTMANUALTASK, NEXTNODEID, ACTION, INITACTION, INPUTPAGENAME from WF_NODEINFO
+		where TEMPLATEID = #{templateId}
+	</select>
+	
+	
+	<insert id="insertNodeInfo" parameterType="NodeInfo">
+ 		insert into WF_NODEINFO(
+ 			templateId,nodeId,nodeType,firstManualTask,
+ 			<if test="nodeName != null and nodeName != ''">nodeName,</if>
+ 			<if test="nodeComment != null and dictValue != ''">nodeComment,</if>
+ 			<if test="preNodeId != null and preNodeId != ''">preNodeId,</if>
+ 			<if test="action != null and action != ''">action,</if>
+ 			<if test="initAction != null and initAction != ''">initAction,</if>
+ 			<if test="inputPageName != null and inputPageName != ''">inputPageName</if>
+ 		)values(
+ 			#{templateId},#{nodeId},#{nodeType},'N',
+ 		    <if test="nodeName != null and nodeName != ''">#{nodeName},</if>
+ 			<if test="nodeComment != null and dictValue != ''">#{nodeComment},</if>
+ 			<if test="preNodeId != null and preNodeId != ''">#{preNodeId},</if>
+ 			<if test="action != null and action != ''">#{action},</if>
+ 			<if test="initAction != null and initAction != ''">#{initAction},</if>
+ 			<if test="inputPageName != null and inputPageName != ''">#{inputPageName}</if>
+ 		)
+	</insert>
+	
+	
+	<update id="updateNextNodeId" parameterType="String">
+ 		update WF_NODEINFO set nextNodeId = #{nextNodeId} where nodeId = #{nodeId}
+	</update>
+</mapper> 

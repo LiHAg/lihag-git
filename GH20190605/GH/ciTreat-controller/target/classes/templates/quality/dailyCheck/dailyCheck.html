@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="devRoom-form">
+					<div class="select-list">
+						<ul>
+							<li>
+								治疗室ID：<input type="text" name="treatMentId"/>
+							</li>
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+                
+       		 <div class="col-sm-12 select-table table-striped">
+	            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+	        </div>
+	    </div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script th:inline="javascript">
+		var prefix = ctx + "quality/dailyCheck";
+		var datas = [[${@dict.getType('devRoomcheckStatus')}]];
+		$(function() {
+		    var options = {
+		        code: "treatMentId",
+		        url: prefix + "/list",
+		        modalName: "每日检查",
+		        method: 'post', 
+		        columns: [{
+                    checkbox: true
+                },
+                 {
+		            field: 'treatMentId',
+		            title: '治疗室ID',
+		            align: "center"
+		        },
+		        {
+		            field: 'treatMentName',
+		            title: '治疗室名称',
+		            align: "center",
+		        },
+		        {
+		            field: 'checkStatus',
+		            title: '检查状态',
+		            align: "center",
+		            formatter: function(value, row, index) {
+	                    return $.table.selectDictLabel(datas, value);
+	                 }
+		        },
+		        {
+		            title: '操作',
+		            align: 'right',
+		            formatter: function(value, row, index) {
+		                if (row.treatMentId != 0) {
+		                    var actions = [];
+		                    if(row.checkStatus == '0'){
+		                    	actions.push('<a class="btn btn-primary btn-xs "  href="#" onclick="dailycheck(\'' + row.treatMentId + '\')"><i class="fa fa-list-ul">每日检查</i></a> ');
+		                    }
+		                    actions.push('<a class="btn btn-success btn-xs " href="#" onclick="flowmeter(\'' + row.treatMentId + '\')"><i class="fa fa-list-ul">检查明细</i></a> ');
+		                    return actions.join('');
+		                } else {
+		                    return "";
+		                }
+		            }
+		        }]
+		    };
+		    $.table.init(options);
+		});
+		function dailycheck(treatMentId) {
+			 var url = prefix + "/dailycheckAction/" + treatMentId;
+			 createMenuItem(url,"检查项");
+		} 
+		/* 检查明细-跳转 */
+		function flowmeter(treatMentId) {
+			 var url = prefix + "/flowmeter/" + treatMentId;
+			 createMenuItem(url,"检查明细");
+		} 
+	</script>
+</body>
+</html>

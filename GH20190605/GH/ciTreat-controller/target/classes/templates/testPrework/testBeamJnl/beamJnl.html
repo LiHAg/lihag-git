@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+
+<style type="text/css">
+
+.divcss1{
+	width:100px;
+	color:blue;
+	font-weight:600;
+}
+.divcss2{
+	width:150px;
+	color:blue;
+	font-weight:600;
+} 
+</style>
+
+<body class="gray-bg" id="test">
+	<div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<table class="table table-hover no-margins"
+					style="margin-bottom: 5px;">
+					<tr>
+						<td class="divcss1">患者ID：</td>
+						<td id="patientId" th:text="${patientId}"></td>
+						<td class="divcss1">患者姓名：</td>
+						<td th:text="${pj.patientName}"></td>
+						<td class="divcss1">计划名称：</td>
+						<td th:text="${pj.planName}"></td>
+						<td class="divcss1">计划日期：</td>
+						<td th:text="${pj.planDate}"></td>
+					</tr>
+					<tr>
+						<td class="divcss1">治疗头：</td>
+<!-- 						<td th:text="${bi.treatHead}" ></td> -->
+						<td value="90DegreeRoom2">90DegreeRoom2</td>
+						<td class="divcss1">能量：</td>
+<!-- 						<td th:text="${bi.energy}"></td> -->
+						<td value="260MeV/u">260MeV/u</td>
+						<td class="divcss1">脊形过滤器：</td>
+<!-- 						<td th:text="${bi.ridgeFilter}"></td> -->
+						<td value="MRF4">MRF4</td>
+						<td class="divcss1">射程移位器：</td>
+<!-- 						<td th:text="${bi.rangeShifter}"></td> -->
+						<td value="37.5">37.5</td>
+					</tr>
+					<tr>
+						<td class="divcss2">IC1标定因子：</td>
+						<td th:text="${bi.ic1CalibFactor}"></td>
+						<td class="divcss2">IC2标定因子：</td>
+						<td th:text="${bi.ic2CalibFactor}"></td>
+						<td class="divcss2">IC3标定因子：</td>
+						<td th:text="${bi.ic3CalibFactor}"></td>
+						<td class="divcss2"></td>
+						<td ></td>
+					</tr>
+				</table>
+			</div>
+			
+			<div class="row">
+				<div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+					<a class="btn btn-success" onclick="createTask()"
+						shiro:hasPermission="system:dict:add"> <i class="fa fa-plus"></i>
+						新增测试
+					</a>
+					<a class="btn btn-success" onclick="commitBeam()"
+						shiro:hasPermission="system:dict:add"> <i class="fa fa-plus"></i>
+						确认标定
+					</a>
+				</div>
+				<div class="col-sm-12 select-table table-striped">
+					<table id="bootstrap-table" data-mobile-responsive="true"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script th:inline="javascript">
+/* 	var busNo = [[${busNo}]];
+	var processId = [[${processId}]]; */
+	var patientId = [[${patientId}]];
+	var datas = [[${@dict.getType('beam_status')}]];
+	var prefix = ctx + "testPrework/testBeam";
+	var prefix_fw = ctx + "workflow";
+	var prefix_zy = ctx + "workflow/processJnl";
+	$(function() {
+		var options = {
+				code: "patientId",
+		        url: prefix + "/beamJnlDetailList/" + patientId,
+		        //removeUrl: prefix + "/remove/{id}",
+		        modalName: "治疗任务",
+		        pageSize: 10,
+		        method: 'post', 
+		        showSearch: false,
+		        showColumns: false,
+		        showToggle: false,
+		        showExport: false,
+		        columns: [
+		        {
+		            field: 'beamNo',
+		            title: '测试编号',
+		        },
+/* 		        {
+		            field: 'createTime',
+		            title: '创建时间',
+		            align: 'center',
+		        },  */
+		        {
+		            field: 'preDose',
+		            title: '预设剂量数',
+		        }, 
+		        {
+		            field: 'reaDose',
+		            title: '实际剂量',
+		        }, 
+		        {
+		            field: 'ic1Num',
+		            title: 'IC1',
+		        },
+		        {
+		            field: 'ic1CalibFactor',
+		            title: 'IC1因子',
+		        },
+		        {
+		            field: 'ic2Num',
+		            title: 'IC2',
+		        },
+		        {
+		            field: 'ic1CalibFactor',
+		            title: 'IC2因子',
+		        },
+		        {
+		            field: 'ic3Num',
+		            title: 'IC3',
+		        },
+		        {
+		            field: 'ic1CalibFactor',
+		            title: 'IC3因子',
+		        },
+ 				{
+		         	 field: 'status',
+			         title: '状态',
+			         align: 'center',
+	                 formatter: function(value, row, index) {
+	                    return $.table.selectDictLabel(datas, value);
+	                 }
+		        },
+		        {
+		            field: 'taskState',
+		            title: '任务状态',
+		            visible: false,
+		        },
+		        {
+		            field: 'taskId',
+		            title: '任务ID',
+		            visible: false,
+		        },
+		        {
+		            field: 'taskComment',
+		            title: '任务名称',
+		        },
+		        {
+		            field: 'nodeId',
+		            title: '节点ID',
+		            visible: false,
+		        },
+		        {
+		            field: 'processId',
+		            title: '流程ID',
+		            visible: false,
+		        },
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+			             var actions = [];
+			             if(row.taskState != 16){
+				             actions.push('<a class="btn btn-danger btn-xs " href="#" onclick="nextTask(\''+ row.taskComment+ '\',\'' +  row.nodeId+ '\',\'' + row.processId+ '\',\'' + row.taskId + '\')"><i class="fa fa-list-ul"></i>继续</a> ');
+			             }
+			             actions.push('<a class="btn btn-info btn-xs " href="#" onclick="detail(\'' + row.processId + '\')"><i class="fa fa-list-ul"></i>作业信息</a> ');
+			             actions.push('<a class="btn btn-danger btn-xs " href="#" onclick="remove(\'' + row.beamNo + '\')"><i class="fa fa-list-ul"></i>作废</a> ');
+			             return actions.join('');
+		            }
+		        }]
+		    };
+	    $.table.init(options);
+	});
+	
+	//创建流程
+	function createTask(){
+		var patientId = [[${patientId}]];
+		var doTaskUrl = prefix + "/addbeamJnl?patientId="+patientId;
+ 		var taskComment = "创建束流标定流程";
+       	$.modal.open(taskComment,doTaskUrl,$(window).width() - 300,$(window).height() - 180);
+	}
+	
+	//继续流程
+	function nextTask(taskComment, nodeId,processId,taskId){
+		var doTaskUrl = prefix_fw + "/doPrepare/beam?nodeId="+nodeId +"&processId="+processId +"&taskId=" + taskId;
+       	$.modal.open(taskComment,doTaskUrl,$(window).width() - 200,$(window).height() - 100);
+	}
+	
+	//作业信息
+	function detail(processId) {
+	    var url = prefix_zy + '/taskJnl/' + processId;
+	    $.modal.open("作业信息",url,$(window).width() - 200,$(window).height() - 100);
+	}
+	
+	//确认标定
+	function commitBeam(){
+		var patientName = [[${pj.patientName}]];
+		var patientId = [[${patientId}]];
+		var planName = [[${pj.planName}]];
+		var ic1CalibFactor = [[${bi.ic1CalibFactor}]];
+		if(!ic1CalibFactor){
+			$.modal.confirm("确定标定"+ patientName +"的信息吗？", function() {
+				$.ajax({
+					type : 'post',
+					url: prefix + "/commitBeam?patientId="+patientId+"&patientName="+patientName +"&planName="+planName,
+					success : function(result) {
+						if (result.code == web_status.SUCCESS) {
+		                	$.modal.msgSuccess(result.msg);
+		                	refreshItem();
+		                } else {
+		                	$.modal.msgError(result.msg);
+		                }
+					}
+				});
+			});
+		}else{
+			$.modal.confirm("患者："+patientName+"的信息已标定,不可重复标定！");
+		}
+	}
+	
+	//作废
+	function remove(id) {
+		$.modal.confirm("确定删除该条" + $.table._option.modalName + "信息吗？", function() {
+			$.ajax({
+				type : 'post',
+				url: prefix + "/remove/" + id,
+				success : function(result) {
+					if (result.code == web_status.SUCCESS) {
+	                	$.modal.msgSuccess(result.msg);
+	                	refreshItem();
+	                } else {
+	                	$.modal.msgError(result.msg);
+	                }
+				}
+			});
+		});
+	}
+
+	
+
+	</script>
+</body>
+</html>

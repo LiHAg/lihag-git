@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>新建律所信息</title>
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="icheck-1.x/skins/all.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-1.7.2.js"></script>
+    <script src="icheck-1.x/icheck.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=5E9ZlcuKoUZy9kRWAO5ko61ZVphnULAI"></script>
+    <style type="text/css">
+        .content{
+            width: 600px;
+            height: 700px;
+            /* border: solid 1px yellow; */
+            margin: 0 auto;
+            color: #3e62a5;
+            font-size: 15px;
+        }
+        .form-control{
+            display: inline-block;
+            width: 300px;
+            height: 30px;
+        }
+        #s1{
+            color: red;
+        }
+        .user{
+            padding-left: 60px;
+            height: 40px;
+        }
+        .code{
+            height: 40px;
+        }
+        .img{
+            padding-left: 30px;
+            height: 40px;
+        }
+        .img1{
+            padding-left: 134px;
+        }
+        .lawname{
+            margin-top: 10px;
+            padding-left: 60px;
+            height: 40px;
+        }
+        .adress{
+            padding-left: 60px;
+            height: 40px;
+        }
+        .map{
+            margin-left: 134px;  
+        }
+        .adress1{
+            margin-top: 10px;
+            padding-left: 60px;
+            height: 40px;
+        }
+        .linkman{
+            padding-left: 74px;
+            height: 40px;
+        }
+        .linkway{
+            padding-left: 60px;
+            height: 40px;
+        }
+        .enable{
+            padding-left:60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="user">
+            <span id='s1'>*</span>
+            登录帐号
+            <input type="text" class="form-control">
+        </div>
+        <div class="code">
+            <span id='s1'>*</span>
+            统一社会信用代码
+            <input type="text" class="form-control">
+        </div>
+        <div class="img">
+            <span id='s1'>*</span>
+            营业执照副本
+            <button type="button" id="choosePic" class="btn btn-primary">点击选择图片</button>
+        </div>
+        <div class="img1">
+            <input id="upload" name="file" accept="image/*" type="file" style="display: none" class="form-control">
+            <img id="imgg" style="max-height: 40%;max-width: 40%" src="">
+        </div>
+        <div class="lawname">
+            <span id='s1'>*</span>
+            律所名称
+            <input type="text" class="form-control">
+        </div>
+        <div class="adress">
+            <span id='s1'>*</span>
+            选择地址
+            <input type="text" disabled="disabled"  id="myaddress" class="form-control">
+        </div>
+       <div class="map" style="width:330px;height:220px;border:#ccc solid 1px;" id="dituContent">
+
+       </div>
+       <div class="adress1">
+            <span id='s1'>*</span>
+            详细地址
+            <input type="text" class="form-control">
+        </div>
+        <div class="linkman">
+            <span id='s1'>*</span>
+            联系人
+            <input type="text" class="form-control">
+        </div>
+        <div class="linkway">
+            <span id='s1'>*</span>
+            联系方式
+            <input type="text" class="form-control">
+        </div>
+        <div class="enable">
+            <span id='s1'>*</span>
+            是否启用
+            <input type="checkbox" checked="checked">
+        </div>
+    </div>
+</body>
+<script>
+// 点击选择图片按钮
+$(function() {
+    $("#choosePic").click(function() {
+        $("#upload").click(); //隐藏了input:file样式后，点击头像就可以本地上传         
+        $("#upload").on("change", function() {
+            var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
+            if (objUrl) {
+                $("#imgg").attr("src", objUrl); //将图片路径存入src中，显示出图片
+                upimg();
+            }
+        });
+    });
+});  
+//建立一?可存取到?file的url
+function getObjectURL(file) {
+    var url = null;
+    if (window.createObjectURL != undefined) { // basic
+        url = window.createObjectURL(file);
+    } else if (window.URL != undefined) { // mozilla(firefox)
+        url = window.URL.createObjectURL(file);
+    } else if (window.webkitURL != undefined) { // webkit or chrome
+        url = window.webkitURL.createObjectURL(file);
+    }
+        return url;  
+}     
+//上传头像到服务器
+function upimg() {
+    console.log(344)
+    var pic = $('#upload')[0].files[0];
+    var file = new FormData();
+    file.append('image', pic);
+    $.ajax({
+        url: "/uploadImg",
+        type: "post",
+        data: file,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+            console.log(data);
+            var res = data;
+            $("#resimg").append("<img src='/" + res + "'>")
+        }
+    });  
+}
+//icheck插件效果
+$(("[type='checkbox']")).iCheck({
+    checkboxClass: 'icheckbox_square-blue'
+    
+  });
+
+//创建和初始化地图函数：
+    function initMap() {
+        createMap();//创建地图
+        setMapEvent();//设置地图事件
+        addMapControl();//向地图添加控件
+    }
+    //创建地图函数：
+    function createMap() {
+        var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+        var point = new BMap.Point(114.392928, 30.480566);//定义一个中心点坐标
+        map.centerAndZoom(point, 16);//设定地图的中心点和坐标并将地图显示在地图容器中
+        window.map = map;//将map变量存储在全局
+    }
+    //地图事件设置函数：
+    function setMapEvent() {
+        map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+        map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+        map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+        map.enableKeyboard();//启用键盘上下左右键移动地图
+    }
+    //地图控件添加函数：
+    function addMapControl() {
+        //向地图中添加缩放控件
+        var ctrl_nav = new BMap.NavigationControl({ anchor: BMAP_ANCHOR_TOP_LEFT, type: BMAP_NAVIGATION_CONTROL_LARGE });
+        map.addControl(ctrl_nav);
+        //向地图中添加比例尺控件
+        var ctrl_sca = new BMap.ScaleControl({ anchor: BMAP_ANCHOR_BOTTOM_RIGHT });
+        map.addControl(ctrl_sca);
+    }
+    initMap();//创建和初始化地图
+    // var map = new BMap.Map("allmap");
+    //单击获取点击的经纬度
+    var geocoder = new BMap.Geocoder();
+    map.addEventListener("click", function (e) {
+        // alert(e.point.lng + "," + e.point.lat);
+        geocoder.getLocation(e.point, function (rs) {
+            // console.log(rs.address);
+            // console.log(rs.addressComponents);
+            // console.log(rs.addressComponents.province);
+            // console.log(rs.addressComponents.city);
+            // console.log(rs.addressComponents.district); //区县
+            // console.log(rs.addressComponents.street); //街道
+            // console.log(rs.addressComponents.streetNumber);
+            // console.log(rs.surroundingPois);
+            // console.log(rs.business);
+            // var site = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
+            //将对应的HTML元素设置值
+            $('#myaddress').val(rs.address);
+        });
+
+    });               
+</script>
+</html>

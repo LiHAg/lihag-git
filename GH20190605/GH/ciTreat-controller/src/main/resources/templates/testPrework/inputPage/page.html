@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<style>
+
+.icss1{
+	font-style:normal;
+	color:crimson;
+	font-weight:600;
+}
+.icss2{
+	font-style:normal;
+	font-weight:600;
+}
+
+</style>
+
+<body class="white-bg">
+	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+		<form id="form-patient-validate">
+			<input name="PROCESSID"  type="hidden"  th:value="${PROCESSID}" />
+			<input name="NODEID"  type="hidden"  th:value="${NODEID}" />
+			<input name="TASKID"  type="hidden"  th:value="${TASKID}" />
+		</form>
+		<div class="col-sm-12">
+			<center style="font-size: -webkit-xxx-large;">设备动作确认</center>
+			<br><br>
+			<ul style="text-indent:6em">
+				<li style="font-size: xx-large">如果【 <i th:text="${taskName}" class="icss1"></i>】已准备就绪,点击【<i class="icss1">确定</i>】后设备将<i th:text="${msg}" class="icss2"></i>,点击【<i class="icss1">关闭</i>】,则请根据实际情况选择治疗状态。</li>
+			</ul>
+		</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript">
+		
+		var prefix = ctx + "testPrework/testBeam/commitProcessTask";
+		function submitHandler() {
+			$.operate.save(prefix, $('#form-patient-validate').serialize());
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ciTreat.dev.mapper.DevManageMapper">
+
+	<resultMap type="DevManager" id="DevManagementResult">
+		<result property="deviceId"       	column="DEVICE_ID"      />
+		<result property="treatmentId"       	column="TREATMENT_ID"      />
+		<result property="deviceName"      	column="DEVICE_NAME"      />
+		<result property="stationName"    		column="STATIONNAME"   />
+		<result property="institutionDddress"   column="INSTITUTIONADDRESS"   />
+		<result property="manufacturer"     	column="MANUFACTURER"   />
+		<result property="modelName"     	column="MODELNAME"   />
+		<result property="deviceSerialNumber"     	column="DEVICESERIALNUMBER"   />
+		<result property="softwareVersion"     	column="SOFTWAREVERSION"   />
+		<result property="operatorName"     	column="OPERATORNAME"   />
+		<result property="operatorTelephone"     	column="OPERATORTELEPHONE"   />
+		<result property="description"     	column="DESCRIPTION"   />
+		<result property="status"     	column="STATUS"   />
+		<result property="startUseDate"     	column="STARTUSEDATE"   />
+		<result property="lastUpdate"     	column="LASTUPDATE"   />
+		<result property="details"     	column="DETAILS"   />
+		<result property="page"     	column="PAGE"   />
+	</resultMap>
+	
+	<select id="selectDevManageList" parameterType="DevManager" resultMap="DevManagementResult">
+        select * from dve_deviceconfig 
+        <where>
+			<if test="deviceId != null and deviceId != ''">
+				AND DEVICE_ID = #{deviceId}
+			</if>
+		</where>
+    </select>
+    
+    <select id="selectDevCalibration" parameterType="DevManager" resultMap="DevManagementResult">
+        select u.DEVICE_ID,u.TREATMENT_ID,u.DEVICE_NAME,
+        u.STATIONNAME,u.INSTITUTIONADDRESS,u.MANUFACTURER,
+        u.MODELNAME,u.DEVICESERIALNUMBER,u.SOFTWAREVERSION,
+        u.OPERATORNAME,u.OPERATORTELEPHONE,
+        u.DESCRIPTION,u.STATUS,u.STARTUSEDATE,u.LASTUPDATE,u.DETAILS,u.PAGE 
+ 		from dve_deviceconfig u left join dve_treatmentroom d on u.TREATMENT_ID = d.TREATMENT_ID
+        <where>
+			<if test="treatmentId != null and treatmentId != ''">
+				AND u.TREATMENT_ID = #{treatmentId}
+			</if>
+		</where>
+    </select>
+    
+    <select id="selectDevManageById" parameterType="DevManager" resultMap="DevManagementResult">
+        select * from dve_deviceconfig where DEVICE_ID = #{deviceId}
+    </select>
+    
+	<update id="updateDetailDevManage" parameterType="DevManager">
+ 		update dve_deviceconfig set DETAILS = #{details},STATUS = #{status} where DEVICE_ID = #{deviceId}
+	</update>
+	
+</mapper> 

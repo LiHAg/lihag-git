@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="Beam-form">
+					<div class="select-list">
+						<ul>
+							<li>
+								患者ID：<input type="text" name="patientId"/>
+							</li>
+							<li>
+								患者姓名：<input type="text" name="patientName"/>
+							</li>
+							<li style="float:right">
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+							    <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+       		 <div class="col-sm-12 select-table table-striped">
+	            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+	        </div>
+	    </div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script th:inline="javascript">
+		var prefix = ctx + "testPrework/testBeam"
+		var beamDatas = [[${@dict.getType('beam_status_bd')}]];
+		$(function() {
+		    var options = {
+		        code: "patientId",
+		        url: prefix + "/list",
+		        createUrl: prefix + "/add",
+		        modalName: "束流管理",
+		        method: 'post', 
+		        columns: [{
+                    checkbox: true
+                },
+                {
+		            field: 'patientId',
+		            title: '患者ID',
+		            align: "left"
+		        },
+		        {
+		            field: 'patientName',
+		            title: '患者名称',
+		            align: "left",
+		        },
+		        {
+		            field: 'planName',
+		            title: '计划名称',
+		            align: "left",
+		        },
+		        {
+		            field: 'beamStatus',
+		            title: '标定状态',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		                 return $.table.selectDictLabel(beamDatas, value);
+		            }	
+		        },
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		                if (row.patientId != 0) {
+		                    var actions = [];
+		                    actions.push('<a class="btn btn-success btn-xs " href="#" onclick="beamJnl(\'' + row.patientId + '\',\'' +  row.planName+ '\')" ><i class="fa fa-edit">束流标定</i></a> ');
+		                    return actions.join('');
+		                } else {
+		                    return "";
+		                }
+		            }
+		        }
+		        
+		        ]
+		    };
+		    $.table.init(options);
+		});
+		
+		function beamJnl(patientId,planName) {
+		    var url = prefix + '/beamJnl?patientId=' + patientId + "&planName=" + planName;
+		    createMenuItem(url,"标定测试");
+		}
+	</script>
+</body>
+</html>

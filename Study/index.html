@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>知识产权侵权投诉举报平台</title>
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-1.7.2.js"></script>
+    
+    <style type="text/css">
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        /* width: 100%; */
+        height: 100%;
+        background: url(img/index_bg.png) no-repeat;
+        background-size: 100% 100%;
+        background-attachment:fixed;
+        overflow:hidden;
+    }
+    .title{
+        margin-left: 80px;
+        color:#FFFFFF;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        /* margin: 0 auto; */
+    }
+    #div1{
+        width: 41px;
+        border-bottom: 1px solid white;
+        margin-bottom: 1px;
+    }
+    .system_name{
+        font-size:36px;
+        letter-spacing:4px;
+        text-shadow: 2px 2px 5px rgba(0,0,0,35);
+        white-space:nowrap;
+    }
+    .company_name{
+        font-size:10px;
+        letter-spacing:2px; 
+        text-shadow:2px 2px 5px rgba(0,0,0,40);
+    }
+    #main{
+        width: 1200px;
+        height: 530px;
+        margin-left: 80px;
+        background-color: white;
+        overflow: hidden;
+        border-radius: 15px;
+    }
+    #left{
+        float: left;
+        height: 530px;
+    }
+    #right{
+       float: left;
+       width: 950px;
+    }
+ 
+    #left a{
+        text-decoration:none;
+        color: #3e62a5;
+    }
+    .nav_menu a{
+        text-decoration:none;
+    }
+    .nav_menu{
+        color: #3e62a5;
+    }
+    #left_top{
+
+        /* border: solid 1px red; */
+        width: 250px;
+        height: 175px;
+        position: relative;
+    }
+    .circle{
+        position: absolute;
+        left: 75px;
+        top:20px;
+        width:100px;
+        height:100px;
+        background-color:white;
+        border-radius:50px; /* 图形的半径 */
+        box-shadow:3px 3px 3px rgb(223, 220, 220),3px -3px 3px rgb(223, 220, 220),-3px 3px 3px rgb(223, 220, 220),-3px -3px 3px rgb(223, 220, 220);
+    }
+    #right #nav{
+        height: 20px;
+        width: 950px;
+    }
+    .J_menuTabs{
+        height: 20px;
+        width: 950px;
+        overflow: hidden;
+    }
+    .nav_menu {
+        border: solid 1px #95B8E7;
+        border-top-right-radius:1em;
+        width: 50px;
+        border-bottom: none;
+        float: left;
+    }
+    .nav_menu a{
+        text-align: center;
+        cursor: pointer;
+        float: left;
+    }
+    .nav_hr{
+        background:  -webkit-linear-gradient(left, #3e62a5 30%, white 100%) right top no-repeat;
+        height: 3px;
+        width: 950px;
+        top:20px;
+    }
+    #content,.J_mainContent{
+        height:480px ;
+        width: 950px;
+    }
+    .second_ul{
+        display: none;
+    }
+    .second_ul li{
+        padding-left: 50px;
+    }
+    .fa-cog,.fa-search,.fa-eye{
+        height: 30px;
+        width: 30px;
+        padding-top: 2px;
+        margin-left: 15px;
+    }
+    .fa-close{
+        float: left;
+        color: #3e62a5;
+        margin-left: 0px;
+        padding-top: 2px;
+    }
+    .first_ul_li{
+        line-height: 30px;
+        /* border: solid 1px blue; */
+    }
+    .second_ul_li:hover{
+        background-color: rgba(153, 149, 149,0.4);
+    }
+    .arrow{
+        float: right;
+        margin-top: 4px;
+        margin-right: 15px;
+    }
+    .fa.arrow:before {
+        content: "\f104";
+    }
+    .active > a > .fa.arrow:before {
+        content: "\f107";
+    }
+    #li_login1.select,.nav_menu.select{
+        color: whitesmoke;
+        background-color: #3e62a5;
+    }
+    .nav_menu .fa-close{
+        display: none;
+    }
+   .nav_menu.select .fa-close{
+        display: inline;
+        color: whitesmoke;
+    }
+    .nav_menu .fa-close:hover{
+        color: rgb(199, 71, 71);
+    }
+    .J_mainContent{
+        display: none;
+    }
+    .J_mainContent.select{
+        display: block;
+    }
+    </style>
+</head>
+<body>
+    <div class="title" >
+        <div class="system_name">知识产权侵权投诉举报平台</div>
+        <div id="div1"></div>
+        <div class="company_name">
+            湖北九畴律师事务所
+        </div>
+    </div>
+    
+    <div id="main">
+        <div id="left">
+            <div id="left_top">
+                <div class="circle"></div>
+            </div>
+            <div id="left_menu">
+                <ul >
+                    <li class="first_ul_li">
+                        <a href="#">
+                            <i class="fa fa-eye"></i>
+                            <span>举报查看</span>
+                            <span class="fa arrow"></span>
+                            <ul class="second_ul">
+                                <li class="second_ul_li" data-url="reportview.html" data-index="0">
+                                    <a class="J_menuItem" >所有举报</a>
+                                </li>
+                            </ul>
+                        </a>
+                    </li>
+                    <li class="first_ul_li">
+                        <a href="#">
+                            <i class="fa fa-search"></i>
+                            <span>侵权情况网络查/核</span>
+                            <span class="fa arrow"></span>
+                            <ul class="second_ul">
+                                <li class="second_ul_li" data-url="test2.html" data-index="2">
+                                    <a class="J_menuItem" >主页示例一</a>
+                                </li>
+                                <li class="second_ul_li" data-url="test3.html" data-index="3">
+                                    <a class="J_menuItem" >主页示例二</a>
+                                </li>
+                            </ul>
+                        </a>
+                    </li>
+                    <li class="first_ul_li">
+                        <a href="#">
+                            <i class="fa fa-cog"></i>
+                            <span>系统设置</span>
+                            <span class="fa arrow"></span>
+                            <ul class="second_ul">
+                                <li class="second_ul_li" data-url="lawoffice.html" data-index="4">
+                                    <a class="J_menuItem" >律所管理</a>
+                                </li>
+                                <li class="second_ul_li" data-url="reportType.html" data-index="5">
+                                    <a class="J_menuItem">举报类别管理</a>
+                                </li>
+                                <li class="second_ul_li" data-url="administrator.html" data-index="6">
+                                    <a class="J_menuItem">服务专员管理</a>
+                                </li>
+                            </ul>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="right">
+            <div class="content-tabs" id="nav">
+                <nav class="J_menuTabs">
+                    <div class="nav_menu select" id="li_login1" onclick="clearAll()">
+                        <a class="J_menuTab" style="padding-left:5px;">
+                            首页
+                        </a>
+                    </div>
+                </nav> 
+            </div>
+            <div class="nav_hr"></div>
+            <div id="content">
+                <div id="div_login1" class="J_mainContent">
+                        <iframe class="J_iframe" frameborder="0" width="100%" height="100%" src="" scrolling="no" ></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $(function(){
+        //左边菜单点击事件，二级菜单下拉
+        $(".first_ul_li").click(function(e){
+            $('.second_ul').children('li').click(function(e){
+                e.stopPropagation();//禁止冒泡事件
+            });
+            if(!$(this).hasClass('active')){
+                $(this).addClass("active");
+            }else{
+                $(this).removeClass("active");
+            }
+            $(this).find('ul').toggle();
+                
+        });
+
+        $(".second_ul_li").each(function () {
+            $(this).click(function () {
+                $(".J_mainContent").removeClass("select");
+                $(".nav_menu").removeClass("select");
+                var url = $(this).attr("data-url");   
+                var indexs = $(this).attr("data-index");
+                var html = $(this).html();
+                if ($("#li_" + indexs).length >= 1) {
+                    $("#li_" + indexs).addClass("select");
+                } else {
+                    $(".J_menuTabs").append('<div class="nav_menu select" id="li_' + indexs+ '"style="width:auto;height:19px;padding-left:5px;" onclick="showCreateDiv(\'' + indexs + '\')"> <a>' + html + '</a><i class="fa fa-close select" onclick="clearSrcDiv(\'' + indexs + '\')"></i></div>\r');
+                }
+                if ($("#div_" + indexs).length >= 1) {
+                    $("#div_" + indexs).addClass("select");
+                    return false;
+                } 
+                $("#content").append('<div class="J_mainContent select" id="div_' + indexs + '">' +
+                    '<iframe src="' + url + '" frameborder="0" width="100%" height="100%" scrolling="no" ></iframe>' +
+                    '</div>');
+                })
+            });
+        
+    })
+    function showCreateDiv(d_id) {
+            $(".J_mainContent").removeClass("select");//1.将所有的资源div影藏
+            $("#div_" + d_id).addClass("select");//2.将当前选择的资源div显示
+            $(".nav_menu").removeClass("select");//3.将之前打开的资源列表删除选中（即移除select样式）
+            $("#li_" + d_id).addClass("select");//4.将当前选中资源的列表设为选中（即添加select样式）
+        }
+    function clearAll(){
+        $('.J_mainContent').removeClass('select');
+        $(".nav_menu").removeClass("select");
+        $("#li_login1").addClass('select');
+    }
+    //点击叉叉关闭功能
+    function clearSrcDiv(obj_id) {
+        event.stopPropagation();//禁止事件冒泡
+        /*获取前后的资源列表id,点击关闭功能后，如果列表后有其他资源列表就显示后一个资源列表，
+        若后面没有其他资源且前面有其他资源列表则显示前一个资源列表*/
+        var nid = $("#li_" + obj_id).next().attr('id');
+        var pid = $("#li_" + obj_id).prev().attr('id');
+        if (nid) {
+            $("#" + nid).click();
+        } else if (pid) {
+            $("#" + pid).click();
+        }
+        $("#div_" + obj_id).remove();
+        $("#li_" + obj_id).remove();
+    }
+
+</script>
+</html>

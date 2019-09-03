@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-1.7.2.js"></script>
+    <script src="layer/layer.js"></script>
+    <title>新建服务专员信息</title>
+    <style type="text/css">
+        .content{
+            width: 400px;
+            overflow: hidden;
+            margin: 0 auto;
+            text-align: center;
+            color:#3e62a5;
+        }
+        #s1{
+            color: red;
+        }
+        .username{
+            height: 30px;
+            padding-left: 32px;
+        }
+        .pwd{
+            height: 30px;
+        }
+        .phone{
+            height: 30px;
+        }
+        .email{
+            height: 30px;
+            padding-left: 32px;
+        }
+        .wechat{
+            height: 30px;
+            padding-left: 16px;
+        }
+        .serv1{
+            height: 30px;
+            padding-right: 32px;
+        }
+        .serv1 input{
+            background-color: #3e62a5;
+            color: white;
+            border-radius: 3px;
+            border: none;
+            outline: none;
+        }
+        .enable{
+            height: 30px;
+            padding-left: 83px;
+            position: relative;
+        }
+        .checkbox{
+            height: 24px;
+            width: 22px;
+            float: left;
+            margin: 0;
+            margin-left: 5px;
+        }
+        #btn{
+            float: right;
+            border: none;
+            background-color: #3e62a5;
+            color: white;
+            width: 70px;
+            border-radius: 5px;
+            outline: none;
+        }
+        .username input,.pwd input,.phone input,.email input,.wechat input{
+            border:solid 1px #a2bdee;
+        }
+
+        input[type="checkbox"]:checked + label::before {
+            content: "\2714";
+            background-color: #3e62a5;
+            text-align: center;
+            font-size: 16px;
+            color: white;
+            display: block;
+        }
+
+        /*lable标签的大小、位置、背景颜色更改，在css选择时，“+”代表相邻元素，即当前元素的下一元素*/
+        #color-input-red +label{
+            display: block;
+            width: 20px;
+            height: 21px;
+            cursor: pointer;
+            position: absolute;
+            top: 0px;
+            border: 1px solid #3e62a5;
+        }
+ 
+        /*当input框为选中状态时，lable标签的样式，其中在css选择时，“：”表示当前input框的值，即checked；
+            该部分主要对显示的“对号”的大限居中方式，显示颜色进行了设置*/
+
+        input[type=checkbox]{
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <form action="">
+            <div class="username">
+                <span id="s1">*</span>
+                姓名
+                <input type="text">
+            </div>
+            <div class="pwd">
+                <span id="s1">*</span>
+                登录帐号
+                <input type="text">
+            </div>
+            <div class="phone">
+                <span id="s1">*</span>
+                手机号码
+                <input type="text">
+            </div>
+            <div class="email">
+                <span id="s1">*</span>
+                邮箱
+                <input type="text">
+            </div>
+            <div class="wechat">
+                <span id="s1">*</span>
+                微信号
+                <input type="text">
+            </div>
+            <div class="serv1">
+                <span id="s1">*</span>
+                专项服务内容
+                <input type="text" readonly class="input" id="int1" value="点击选择专项服务内容">
+            </div>
+            <div class="enable">
+                <span id="s1" style="float:left;">*</span>
+                <span style="float:left;">是否启用</span>
+                <div class="checkbox">
+                    <input id="color-input-red" class="chat-button-location-radio-input" type="checkbox" name="color-input-red" checked="checked" />
+                    <label  for="color-input-red" style="float:left;"></label >
+                </div>
+            </div>
+            <input type="button" class="preservation" id="btn" value="保存">
+        </form>
+    </div>
+</body>
+<script>
+     //是否启用勾勾
+     $('.check').click(function(){
+            if(!$(this).hasClass('fa-check-square')){
+                $(this).addClass('fa-check-square');
+                $(this).css('border','solid 1px white');
+            }else{
+                $(this).removeClass('fa-check-square');
+                $(this).css('border','solid 1px rgb(221, 226, 243)');
+            }
+        });
+
+    !function(){
+        $('#int1').on('click',function(){
+            layer.open({
+                type: 2,
+                title:'专员服务内容',
+                area: ['600px', '450px'],
+                content: ['reportType1.html','no'],
+                maxmin: true,
+                shadeClose:true,
+                fixed:false,
+                zIndex: layer.zIndex,
+                closeBtn: 1
+            });
+        }); 
+    }();
+</script>
+</html>

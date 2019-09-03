@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	
+	<div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="operlog-form">
+					<div class="select-list">
+						<ul>
+							<li>
+								治疗室ID： <span th:text="${treatMentId}"></span>
+							</li>
+							
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+			<div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+		        <a class="btn btn-success" onclick="success()" shiro:hasPermission="ciTreat:dailyCheck:success">
+                    <i class="fa fa-list-ul"></i> 完成
+                </a>
+    
+	        </div>
+	        
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+	
+	<div th:include="include :: footer"></div>
+	<script th:inline="javascript">
+		var prefix = ctx + "quality/checkManager";
+		var prefix2 = ctx+ "quality/dailyCheck"
+		var treatMentId=[[${treatMentId}]];
+		$(function() {
+		    	var options = {
+			    url: prefix + "/list2",
+				    modalName: "检查项管理",
+				    columns: [{
+		            checkbox: true 
+		        },
+		        {
+		            field: 'checkItemId',
+		            title: '检查项ID'
+		        },
+		        {
+		            field: 'checkItemData',
+		            title: '检查项内容'
+		        },
+		        {
+		        	field: 'checkStatus',
+		            title: '检查状态',
+		            formatter: function (value, row, index) {
+		        		return statusTools(row);
+		        	}
+		        },
+		        {
+		            field: 'remarks',
+		            title: '备注'
+		            
+		        }]
+		    };
+		    $.table.init(options);
+		});
+		/* 检查状态显示 */
+		function statusTools(row) {
+		    if (row.checkStatus == 0) {
+    			return '<i class=\"fa fa-toggle-on text-info fa-2x\" onclick="unqualified(\'' + row.checkItemId + '\')"></i> ';
+    		} else {
+    			return '<i class=\"fa fa-toggle-off text-info fa-2x\" onclick="qualified(\'' + row.checkItemId + '\')"></i> ';
+    		}
+		}
+		/* 检查状态-将状态改为不合格 */
+		function unqualified(checkItemId) {
+			$.modal.confirm("确认要改变状态为【不合格】吗？", function() {
+				$.operate.post(prefix2 + "/changeStatus", { "checkItemId": checkItemId, "checkStatus": 1 });
+		    })
+		}
+
+		/* 检查状态-将状态改为合格 */
+		function qualified(checkItemId) {
+			alert("hahahah");
+			$.modal.confirm("确认要改变状态为【合格】吗？", function() {
+				$.operate.post(prefix2 + "/changeStatus", { "checkItemId": checkItemId, "checkStatus": 0 });
+		    })
+		}
+		
+		/* 完成  */
+		function success() {
+			$.modal.confirm("确认已完成检查吗？", function() {
+				$.operate.post(prefix2 + "/success/" + treatMentId);
+		    })
+		}
+	</script>
+</body>
+</html>

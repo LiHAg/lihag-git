@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="ciTreat-controller">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="gh-framework-3.2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gh-framework/gh-framework">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ciTreat-service-3.2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ciTreat-service/ciTreat-service">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gh-quartz-3.2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gh-quartz/gh-quartz">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ciTreat-dicom-3.2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ciTreat-dicom/ciTreat-dicom">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gh-common-3.2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gh-common/gh-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/gh-echarts/gh-echarts">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="ciTreat-controller"/>
+        <property name="java-output-path" value="/ciTreat-controller/target/classes"/>
+    </wb-module>
+</project-modules>

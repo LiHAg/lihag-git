@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>举报类型</title>
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-1.7.2.js"></script>
+    <style type="text/css">
+    .content{
+        width: 850px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+    ul li{
+        list-style: none;
+    }
+    .second_ul,.third_ul{
+        padding-left: 0;
+        display: none;
+    }
+    .first_ul_li,.second_ul_li{
+        font-size: 25px;
+    }
+    .second_ul_li .fa-caret-right{
+        margin-left: 20px;
+    }
+
+    .fa-caret-right{
+        font-size: 25px;
+    }
+    .input1{
+        width: 16px;
+        height: 16px;
+    }
+    #input2{
+        width: 100px;
+        height: 37px;
+        background-color: #3e62a5;
+        color:white;    
+        border-radius: 5px; 
+        outline: none;
+        border: none;
+        margin-left: 400px;
+    }
+    .active.fa-caret-right:before{
+            content: "\f0d7";
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <form action="" method="post">    
+        <div class="checks">
+            <ul>
+                <li class='first_ul_li'>
+                    <input class='input1' id="in1"  type="checkbox"  name="protect_type" value="世界军人运动会专项知识产权保护类">
+                    <i class="fa fa-caret-right">
+                    世界军人运动会专项知识产权保护类</i>
+                    <ul class='second_ul'>
+                        <li class='second_ul_li'>
+                            <input class='input1' id="in2" type="checkbox" name="protect_type" value="名称类">
+                            <i class="fa fa-caret-right">
+                            名称类</i>
+                        </li>
+                        <li class='second_ul_li'>
+                            <input class='input1' id="in2" type="checkbox" name="protect_type" value="缩写类">
+                            <i class="fa fa-caret-right">
+                            缩写类</i>
+                            <ul class='third_ul'>
+                                <li class='third_ul_li'>
+                                    <input class='input1' id="in2" style="margin-right:90px;"type="checkbox" name="protect_type" value="其他世界军人运动会专有表达词汇缩写符号">
+                                    其他世界军人运动会专有表达词汇缩写符号
+                                </li>
+                            </ul>
+                        </li>
+                        <li class='second_ul_li'>
+                            <input class='input1' id="in2" type="checkbox" name="protect_type" value=" 格言/口号类"> 
+                            <i class="fa fa-caret-right">
+                            格言/口号类</i>
+                        </li>
+                        <li class='second_ul_li'>
+                            <input class='input1' id="in2" type="checkbox" name="protect_type" value="网络知识产权类">
+                            <i class="fa fa-caret-right">
+                            网络知识产权类</i>
+                        </li>
+                        <li class='second_ul_li'>
+                            <input class='input1' id="in2" type="checkbox" name="protect_type" value="其他">
+                            <i class="fa fa-caret-right">
+                            其他</i>
+                        </li>
+                        <li class='second_ul_li'>
+                            <input class='input1' id="in2" type="checkbox" name="protect_type" value="标志/标识类">
+                            <i class="fa fa-caret-right">
+                            标志/标识类</i>
+                        </li>
+                    </ul>
+                </li>
+                <li class='first_ul_li'>
+                        <input class='input1' id="in1" type="checkbox"  name="protect_type" value="一般知识产权保护类">
+                        <i class="fa fa-caret-right">
+                        一般知识产权保护类</i>
+                </li>
+            </ul>
+        </div>
+        <input id="input2" type="submit" value="确定">
+    </form>
+    </div>
+</body>
+<script>
+    $(function(){
+        $('.fa-caret-right').click(function(e){
+           if(!$(this).hasClass('active')){
+               $(this).addClass('active');
+           }else{
+               $(this).removeClass('active');
+           }
+           $(this).parent().find('.second_ul').toggle();
+           $(this).parent().children('.third_ul').toggle();
+        });
+        //全选，反选
+        $('#in1').click(function(){
+            var flag=this.checked;
+            $(":checkbox[id='in2']").attr('checked',flag);
+        });
+        $(":checkbox[id='in2']").click(function(){
+            $('#in1').attr('checked',$(":checkbox[id='in2']").length==$(":checkbox[id='in2']:checked").length);
+        });
+        
+     });
+</script>
+</html>

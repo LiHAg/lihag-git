@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ciTreat.dev.mapper.DevRoomMapper">
+
+	<resultMap type="DevTreatmentRoom" id="DevTreatmentRoomResult">
+		<id     property="treatMentId"     column="TREATMENT_ID"     />
+		<result property="treatMentName"   column="TREATMENT_NAME"   />
+		<result property="description"  column="DESCRIPTION"   />
+		<result property="validFg" 	 column="VALID_FG"  />
+		<result property="checkStatus" 	 column="CHECKSTATUS"  />
+	</resultMap>
+	
+	<sql id="selectDevRoomVo">
+        select d.treatment_id, d.treatment_name, d.description, d.valid_fg, d.checkStatus
+        from DVE_TREATMENTROOM d
+    </sql>
+	
+	<select id="selectDevRoomList" parameterType="DevTreatmentRoom" resultMap="DevTreatmentRoomResult">
+        <include refid="selectDevRoomVo"/>
+        <where>
+			<if test="treatMentId != null and treatMentId != ''">
+				AND treatment_id = #{treatMentId}
+			</if>
+		</where>
+    </select>
+	
+	<select id="selectDevRoomCount" parameterType="DevTreatmentRoom" resultType="int">
+		select count(1) from dve_treatmentroom
+		where 
+		<if test="treatMentId != null and treatMentId != 0"> treatment_id = #{treatMentId} </if>
+	</select>
+	
+
+	<select id="selectDevRoomById" parameterType="String" resultMap="DevTreatmentRoomResult">
+		select d.treatment_id, d.treatment_name, d.description, d.valid_fg, d.checkStatus
+		from dve_treatmentroom d
+		where d.treatment_id = #{treatMentId}
+	</select>
+	
+	<insert id="insertDevRoom" parameterType="DevTreatmentRoom">
+ 		insert into dve_treatmentroom(treatment_id,treatment_name,description,valid_fg,CHECKSTATUS)
+ 		values(
+ 			#{treatMentId},
+ 			#{treatMentName},
+ 			#{description},
+ 			#{validFg},
+ 			#{checkStatus}
+ 		)
+	</insert>
+	
+	<update id="updateDevRoom" parameterType="DevTreatmentRoom">
+ 		update dve_treatmentroom
+ 		<set>
+		  <if test="treatMentName!=null">treatment_name = #{treatMentName},</if>
+		  <if test="description!=null">description = #{description},</if>
+		  <if test="validFg!=null">valid_fg = #{validFg},</if>
+		  <if test="checkStatus!=null">CHECKSTATUS=#{checkStatus},</if>
+ 		</set>
+ 		where treatment_id = #{treatMentId}
+	</update>
+	
+	<delete id="deleteDevRoomById" parameterType="String">
+		delete  from dve_treatmentroom where treatment_id = #{treatMentId}
+	</delete>
+	
+</mapper> 

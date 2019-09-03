@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ciTreat.patient.mapper.PatientInfoMapper">
+
+	<resultMap type="PatientInfo" id="PatientInfoResult">
+		<result property="patientId"       	column="PATIENTID"      />
+		<result property="patientName"     	column="PATIENTNAME"    />
+		<result property="sex"    		    column="SEX"   />
+		<result property="totalNum"    		column="TOTALNUM"   />
+		<result property="totalDose"     	column="TOTALDOSE"    />
+	</resultMap>
+	
+	
+	<select id="selectPatientInfoByPID" parameterType="PatientInfo" resultMap="PatientInfoResult">
+		SELECT PATIENTID, PATIENTNAME, SEX, TOTALNUM, TOTALDOSE FROM PATIENT_INFO
+		WHERE PATIENTID = #{patientId}
+	</select>
+	
+
+	
+</mapper> 

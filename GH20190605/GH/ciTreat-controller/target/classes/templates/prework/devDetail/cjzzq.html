@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight ibox-content" style="height: 100%">
+ 		<form class="form-horizontal m" id="form-cjzzq-add">
+ 			<div class="form-group" style="display:none;">
+				<label class="col-sm-3 control-label ">设备ID：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" id="deviceId" name="deviceId" th:value="${deviceId}"  readonly/>
+				</div>
+			</div>
+ 			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-3 control-label ">设备名称：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" id="deviceName" name="deviceName" th:value="${deviceName}" readonly/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label ">水平范围(mm)：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="x_range1" name=""x_range1"" value="${x_range1}"/>
+				</div>
+				<label class="col-sm-1 control-label "style="text-align: center;">至</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="x_range2" name="x_range2" value="${x_range2}"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label ">垂直范围(mm)：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="y_range1" name="y_range1" value="${y_range1}"/>
+				</div>
+				<label class="col-sm-1 control-label "style="text-align: center;">至</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="y_range2" name="y_range2" value="${y_range2}"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label ">误差范围：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" id="deviation" name="deviation" value="${deviation}"/>
+				</div>
+			</div>
+		</form>
+ 	</div>
+	<div th:include="include :: footer"></div>
+	<script th:inline="javascript">
+	var prefix = ctx + "prework/device";
+	
+	function submitHandler() {
+		/* var list=document.getElementById("form-dev-add");
+		var array=[]; //定义一个对象数据
+		var obj = {};
+		for (var i = 0;i < list.length;i++){
+			var key = list[i].name;
+			var value = list[i].value;
+			obj[key] = value;
+		}
+		var datas = JSON.stringify(obj);
+		alert(datas);
+        if ($.validate.form()) {
+        	$.operate.post(prefix + "/commitDevCalibration", datas);
+        } */
+        
+      	//传入form参数
+      	var data = new Object();
+        data.deviceId = $('#deviceId').val();
+        var serializeParameters=$('#form-cjzzq-add').serializeArray();
+        var paraMap = {};
+        for (var i = 0; i < serializeParameters.length; i++) {
+        	paraMap[serializeParameters[i].name]=serializeParameters[i].value;
+        }
+        data.formData = paraMap;
+		$.operate.savee(prefix + "/commitDevCalibration", data);
+    }
+	
+	</script>
+</body>
+</html>

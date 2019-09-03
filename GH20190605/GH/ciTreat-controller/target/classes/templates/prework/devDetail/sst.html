@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight ibox-content" style="height: 100%">
+ 		<form class="form-horizontal m" id="form-sst-add">
+ 			<div class="form-group" style="display:none;">
+				<label class="col-sm-3 control-label ">设备ID：</label>
+				<div class="col-sm-8">
+					<input style="width:20%" type="text" id="deviceId" name="deviceId" th:value="${deviceId}"  readonly/>
+				</div>
+			</div>
+ 			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">设备名称：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" id="deviceName" name="deviceName" th:value="${deviceName}" readonly/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">空位：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="Vacancy" name="Vacancy" th:value="${Vacancy}"/>
+				</div>
+				<label class="col-sm-2 control-label ">运动状态：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="actionStatus" name="actionStatus" th:value="${actionStatus}"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">Pb0.5：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="Pb0.5" name="Pb0.5" th:value="${Pb0.5}"/>
+				</div>
+				<label class="col-sm-2 control-label ">Pb1.0：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="Pb1.0" name="Pb1.0" th:value="${Pb1.0}"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">Pb1.5：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="Pb1.5" name="Pb1.5" th:value="${Pb1.5}"/>
+				</div>
+				<label class="col-sm-2 control-label ">Pb2.0：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="Pb2.0" name="Pb2.0" th:value="${Pb2.0}"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">Pb2.5：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="Pb2.5" name="Pb2.5" th:value="${Pb2.5}"/>
+				</div>
+				<label class="col-sm-2 control-label ">Pb3.0：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="Pb3.0" name="Pb3.0" th:value="${Pb3.0}"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">Pb3.5：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="Pb3.5" name="Pb3.5" th:value="${Pb3.5}"/>
+				</div>
+				<label class="col-sm-2 control-label ">Pb4.0：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="Pb4.0" name="Pb4.0" th:value="${Pb4.0}"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">Pb4.5：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="Pb4.5" name="Pb4.5" th:value="${Pb4.5}"/>
+				</div>
+				<label class="col-sm-2 control-label ">Pb5.0：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="Pb5.0" name="Pb5.0" th:value="${Pb5.0}"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">Pb5.5：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="Pb5.5" name="Pb5.5" th:value="${Pb5.5}"/>
+				</div>
+				<label class="col-sm-2 control-label ">Pb6.0：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="Pb6.0" name="Pb6.0" th:value="${Pb6.0}"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top: 20px">
+				<label class="col-sm-2 control-label ">Pb6.5：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="Pb6.5" name="Pb6.5" th:value="${Pb6.5}"/>
+				</div>
+				<label class="col-sm-2 control-label ">Pb7.0：</label>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" id="Pb7.0" name="Pb7.0" th:value="${Pb7.0}"/>
+				</div>
+			</div>
+		</form>
+ 	</div>
+	<div th:include="include :: footer"></div>
+	<script th:inline="javascript">
+	var prefix = ctx + "prework/device";
+	
+	function submitHandler() {
+		/* var list=document.getElementById("form-dev-add");
+		var array=[]; //定义一个对象数据
+		var obj = {};
+		for (var i = 0;i < list.length;i++){
+			var key = list[i].name;
+			var value = list[i].value;
+			obj[key] = value;
+		}
+		var datas = JSON.stringify(obj);
+		alert(datas);
+        if ($.validate.form()) {
+        	$.operate.post(prefix + "/commitDevCalibration", datas);
+        } */
+        
+      	//传入form参数
+      	var data = new Object();
+        data.deviceId = $('#deviceId').val();
+        var serializeParameters=$('#form-sst-add').serializeArray();
+        var paraMap = {};
+        for (var i = 0; i < serializeParameters.length; i++) {
+        	paraMap[serializeParameters[i].name]=serializeParameters[i].value;
+        }
+        data.formData = paraMap;
+		$.operate.savee(prefix + "/commitDevCalibration", data);
+    }
+	
+	</script>
+</body>
+</html>

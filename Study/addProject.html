@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">    
+    <script src="js/jquery-1.7.2.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="layer/layer.js"></script>
+    <style type="text/css">
+        .content{
+            padding-top: 50px;
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+            color:  #3e62a5;
+        }
+        .project_name{
+            height: 30px;
+            line-height: 30px;
+        }
+        .enable{
+            margin-top: 10px;
+            height: 30px;
+            padding-left: 37px;
+            position: relative;
+        }
+        .checkbox{
+            height: 20px;
+            width: 22px;
+            float: left;
+            margin: 0;
+            margin-left: 15px;
+        }
+ 
+        .put{
+            width: 268px;
+            margin-left: 10px;
+        }
+        
+        .isPreservation{
+            height: 30px;
+            margin-top: 35px;
+        }
+        #btn{
+            float: right;
+            border: solid 1px rgb(221, 226, 243); 
+            width: 70px;
+            margin-right: 5px;
+            border-radius: 5px;
+            outline: none;
+            color: white;
+            background-color: #3e62a5;
+        }
+
+        input[type="checkbox"]:checked + label::before {
+            content: "\2714";
+            background-color: #3e62a5;
+            text-align: center;
+            font-size: 16px;
+            color: white;
+            display: block;
+        }
+
+        /*lable标签的大小、位置、背景颜色更改，在css选择时，“+”代表相邻元素，即当前元素的下一元素*/
+        #color-input-red +label{
+            display: block;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 0px;
+            border: 1px solid #3e62a5;
+        }
+ 
+        /*当input框为选中状态时，lable标签的样式，其中在css选择时，“：”表示当前input框的值，即checked；
+            该部分主要对显示的“对号”的大限居中方式，显示颜色进行了设置*/
+
+        input[type=checkbox]{
+            visibility: hidden;
+        }
+        
+    </style>
+</head>
+<body>
+        <div class="content">
+                <form action="">
+                    <div class="project_name">
+                        <span style="color:red;">*</span>
+                        保护项目名称
+                        <input  class="put" type="text" >
+                    </div>
+                    <div class="enable">
+                        <span style="color:red;float:left">*</span>
+                        <span style="float:left;"class="two">是否启用</span>
+                        <div class="checkbox">
+                            <input id="color-input-red" class="chat-button-location-radio-input" type="checkbox" name="color-input-red" checked="checked" />
+                            <label  for="color-input-red" style="float:left;"></label >
+                        </div>
+                    </div>
+                    <div class="isPreservation">
+                        <input type="button" class="preservation" id="btn" value="保存"></button>
+                    </div>
+                </form>
+        </div>
+</body>
+</html>

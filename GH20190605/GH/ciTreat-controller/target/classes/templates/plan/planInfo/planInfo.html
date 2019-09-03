@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg" id="test">
+    <div class="wrapper wrapper-content">
+        <div class="col-sm-12">
+        	
+        	<div class="row">
+                <div class="col-sm-4">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                           <h5>患者信息</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                    <tr>
+                                        <td>患者ID</td>
+                                        <td th:text="...">0个</td>
+                                        <td>患者姓名</td>
+                                        <td th:text="...">0%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>治疗模式</td>
+                                        <td th:text="...">0%</td>
+                                        <td>治疗头</td>
+                                        <td th:text="...">0%</td>
+                                    </tr>
+                                     <tr>
+                                        <td>治疗次数</td>
+                                        <td th:text="...">0%</td>
+                                        <td>治疗层</td>
+                                        <td th:text="...">0%</td>
+                                    </tr>
+                                   <tr>
+                                        <td>计划剂量</td>
+                                        <td th:text="...">0%</td>
+                                         <td>已完成剂量</td>
+                                        <td th:text="...">0%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>治疗状态</td>
+                                        <td th:text="...">0%</td>
+                                        <td></td>
+                                        <td th:text="...">0%</td>
+                                    </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-4">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title" >
+                           <h5>束流信息</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                    <tr>
+                                        <td>治疗头编号</td>
+                                        <td th:text="..."></td>
+                                        <td>束流类型</td>
+                                        <td th:text="..."></td>
+                                    </tr>
+                                    <tr>
+                                        <td>扫描模式</td>
+                                        <td th:text="..."></td>
+                                        <td>束流能量</td>
+                                        <td th:text="..."></td>
+                                    </tr>
+                                     <tr>
+                                        <td>总剂量</td>
+                                        <td th:text="..."></td>
+                                        <td>总剂量值</td>
+                                        <td th:text="..."></td>
+                                    </tr>
+                                   <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                         <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+           <div class="row">
+           		<div class="col-sm-2">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title" style="background-color: #40b8c0;">
+                           	<h5>DR</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                    <tr>
+                                        <td>X轴</td>
+                                        <td th:text="...">0个</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Y轴</td>
+                                        <td th:text="...">0%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Z轴</td>
+                                        <td th:text="...">0%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>T轴</td>
+                                        <td th:text="...">0%</td>
+                                    </tr>
+                                     <tr>
+                                        <td>曝光电压</td>
+                                        <td th:text="...">0%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>曝光电流</td>
+                                        <td th:text="...">0%</td>
+                                    </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="col-sm-2">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title" style="background-color: #40b8c0;">
+                           	<h5>初级准直器</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                    <tr>
+                                        <td>设备类型</td>
+                                        <td th:text="..."></td>
+                                    </tr>
+                                    <tr>
+                                        <td>水平位置</td>
+                                        <td th:text="..."></td>
+                                    </tr>
+                                    <tr>
+                                        <td>垂直位置</td>
+                                        <td th:text="..."></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                     <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-2">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title" style="background-color: #40b8c0;">
+                           	<h5>脊形过滤器</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                    <tr>
+                                        <td>标识ID</td>
+                                        <td th:text="..."></td>
+                                    </tr>
+                                    <tr>
+                                        <td>对应值</td>
+                                        <td th:text="..."></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                     <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-2">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title" style="background-color: #40b8c0;">
+                           	<h5>治疗床</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                    <tr>
+                                        <td>等中心旋转角度</td>
+                                        <td th:text="..."></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Z轴旋转角度</td>
+                                        <td th:text="..."></td>
+                                    </tr>
+                                    <tr>
+                                        <td>X轴</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Y轴</td>
+                                        <td></td>
+                                    </tr>
+                                     <tr>
+                                        <td>Z轴</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+           
+           </div>         	
+                    	
+            <div class="row">
+                
+                
+                <div class="col-sm-2">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title" style="background-color: #40b8c0;">
+                           	<h5>多页光栅构型</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                    <tr>
+                                        <td>设备类型</td>
+                                        <td th:text="..."></td>
+                                    </tr>
+                                    <tr>
+                                        <td>旋转方向</td>
+                                        <td th:text="..."></td>
+                                    </tr>
+                                    <tr>
+                                        <td>旋转角度</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>叶片对数</td>
+                                        <td></td>
+                                    </tr>
+                                     <tr>
+                                        <td>叶片边界</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-2">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title" style="background-color: #40b8c0;">
+                           	<h5>射程移位器</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                    <tr>
+                                        <td>厚度</td>
+                                        <td th:text="..."></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                     <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-2">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title" style="background-color: #40b8c0;">
+                           	<h5>补偿器</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td th:text="..."></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                     <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-2">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title" style="background-color: #40b8c0;">
+                           	<h5>呼吸门控</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td th:text="..."></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                     <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                    </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            
+        </div>
+    </div>
+</body>
+<div th:include="include :: footer"></div>
+<script th:inline="javascript">
+
+$(".modal").appendTo("body"), $("[data-toggle=popover]").popover(), $(".collapse-link").click(function() {
+    var div_ibox = $(this).closest("div.ibox"),
+    e = $(this).find("i"),
+    i = div_ibox.find("div.ibox-content");
+    i.slideToggle(200),
+    e.toggleClass("fa-chevron-up").toggleClass("fa-chevron-down"),
+    div_ibox.toggleClass("").toggleClass("border-bottom"),
+    setTimeout(function() {
+    	div_ibox.resize();
+    }, 50);
+}), $(".close-link").click(function () {
+	var div_ibox = $(this).closest("div.ibox");
+	div_ibox.remove()
+});
+</script>
+
+<style type="text/css">
+	.r_out {width:120px; height:120px; border:2px solid #d9d9d9; background:#fff; box-shadow:3px 3px 5px #bfbfbf; -webkit-box-shadow:3px 3px 5px #bfbfbf; -moz-box-shadow:3px 3px 5px #bfbfbf; -ms-box-shadow:3px 3px 5px #bfbfbf; border-radius:50%; -webkit-border-radius:50%; -moz-border-radius:50%; -ms_border-radius:50%; display:inline-block; margin-right:90px; position:relative;}
+    .r_out p {position:absolute; /**bottom:-50px;*/ color:#fff; text-align:center; margin:0 auto; width:100%; font-size:14px; line-height:1.5; font-weight:bold;}
+
+    .r_in {width:120px; height:120px; border:10px solid #fff; border-radius:50%; -webkit-border-radius:50%; -moz-border-radius:50%; -ms_border-radius:50%; overflow:hidden; position:relative;}
+    .r_c {width:120px; height:120px; position:absolute; bottom:0; left:0; height:0;}
+    .c1 {background:#fbad4c;}
+    .c2 {background:#fff143;}
+    .c3 {background:#c9dd22;}
+    .c4 {background:#00e079;}
+    .c5 {background:#0eb83a;}
+    .r_num {color:#404040; font-size:23px; line-height:1.5; font-weight:bold; position:absolute; top:50%; margin-top:-25px; text-align:center; width:100%;}
+	       
+	        	
+			.alert-lost{
+			padding:5px;
+			margin-top:10px;
+			margin-bottom:-8px;
+			/* font-size:14px; */
+			}
+	
+	.table>thead>tr>th, 
+	.table>tbody>tr>th, 
+	.table>tfoot>tr>th, 
+	.table>thead>tr>td, 
+	.table>tbody>tr>td, 
+	.table>tfoot>tr>td{
+		line-height: 1.42857;
+		padding: 2px;
+	}			
+</style>
+</html>

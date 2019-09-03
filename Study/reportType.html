@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">    
+    <script src="js/jquery-1.7.2.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="layer/layer.js"></script>
+    <style type="text/css">
+        .content{
+            padding-top: 50px;
+            width: 850px;
+            height: 400px;
+            margin: 0 auto;
+        }
+        ul li{
+            list-style:none;
+        }
+        .left{
+            float: left;
+            height: 395px;
+            width: 420px;
+            border-right: solid 1px rgb(221, 226, 243); 
+            overflow-x: scroll;
+        }
+        .right{
+            overflow: hidden;
+            padding-left: 20px;
+            float:left;
+            height: 395px;
+            width: 400px;
+            color:#3e62a5;
+        }
+
+
+        .active>.fa-caret-right:before{
+            content: "\f0d7";
+        }
+        .title{
+            overflow: hidden;
+            height: 32px;
+            width:438px;
+            font-size: 25px;
+            color:#3e62a5;
+             
+            /* border:1px red solid; */
+        }
+        #one{
+            padding-left: 38px;
+        }
+        .fa-plus-square{
+            margin-left: 165px;
+        }
+        .fa-caret-right{
+            color:rgb(153, 149, 149);
+        }
+        .first_ul_li{
+            color:#3e62a5;
+        }
+        .second_ul{
+            display: none;
+        }
+        .third_ul{
+            display: none;
+        }
+        .third_ul_li:hover{
+            background-color: rgba(153, 149, 149,0.4);
+        }
+
+        .edit_information{
+            width:400px;
+            height: 32px;
+            font-size: 25px;
+            color:#3e62a5;
+        }
+        .project_name{
+            margin-top: 65px;
+        }
+        .project_name{
+            height: 30px;
+            line-height: 30px;
+        }
+        .enable{
+            margin-top: 10px;
+            height: 30px;
+            padding-left: 37px;
+            position: relative;
+        }
+        .checkbox{
+            height: 20px;
+            width: 22px;
+            float: left;
+            margin: 0;
+            margin-left: 15px;
+        }
+ 
+        .put{
+            width: 268px;
+            margin-left: 10px;
+        }
+        
+        .isPreservation{
+            height: 30px;
+            margin-top: 35px;
+        }
+        #btn{
+            float: right;
+            border: solid 1px rgb(221, 226, 243); 
+            width: 70px;
+            margin-right: 5px;
+            border-radius: 5px;
+            outline: none;
+        }
+        .cancel{
+            background-color:white;
+            margin-right: 10px; 
+        }
+        .preservation{
+            background-color:white;
+        }
+        .cancel.active{
+            color: white;
+            background-color: #3e62a5;
+        }
+        .preservation.active{
+            color: white;
+            background-color: #3e62a5;
+        }
+
+        input[type="checkbox"]:checked + label::before {
+            content: "\2714";
+            background-color: #3e62a5;
+            text-align: center;
+            font-size: 16px;
+            color: white;
+            display: block;
+        }
+
+        /*lable标签的大小、位置、背景颜色更改，在css选择时，“+”代表相邻元素，即当前元素的下一元素*/
+        #color-input-red +label{
+            display: block;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 0px;
+            border: 1px solid #3e62a5;
+        }
+ 
+        /*当input框为选中状态时，lable标签的样式，其中在css选择时，“：”表示当前input框的值，即checked；
+            该部分主要对显示的“对号”的大限居中方式，显示颜色进行了设置*/
+
+        input[type=checkbox]{
+            visibility: hidden;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="left">
+            <div class="title">
+                <span id="one">所有保护项目</span>
+                <i class="show fa fa-plus-square"></i>
+            </div>
+            <div class="type">
+                <ul>
+                    <li class="first_ul_li " name="世界军人运动会专项知识产权保护类">
+                        <i class="fa fa-caret-right "></i>
+                        世界军人运动会专项知识产权保护类
+                        <ul class="second_ul">
+                            <li class="second_ul_li" name="名称类">
+                                <i class="fa fa-caret-right"></i>
+                                名称类
+                            </li>
+                            <li class="second_ul_li" name="缩写类">
+                                <i class="fa fa-caret-right"></i>
+                                缩写类
+                                <ul class="third_ul">
+                                    <li class="third_ul_li" name="其他世界军人运动会专有表达词汇缩写...">其他世界军人运动会专有表达词汇缩写...</li>
+                                </ul>
+                            </li>
+                            <li class="second_ul_li" name="格言/口号类">
+                                <i class="fa fa-caret-right"></i>
+                                格言/口号类
+                            </li>
+                            <li class="second_ul_li" name="网络知识产权类">
+                                <i class="fa fa-caret-right"></i>
+                                网络知识产权类
+                            </li>
+                            <li class="second_ul_li" name="其他">
+                                <i class="fa fa-caret-right"></i>
+                                其他
+                            </li>
+                            <li class="second_ul_li" name="标志/标识类">
+                                <i class="fa fa-caret-right"></i>
+                                标志/标识类
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="first_ul_li" name="一般知识产权保护类">
+                        <i class="fa fa-caret-right"></i>
+                        一般知识产权保护类
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="right">
+            <div class="edit_information">
+                编辑保护项目信息
+            </div>
+                <form action="">
+                    <div class="project_name">
+                        <span style="color:red;">*</span>
+                        保护项目名称
+                        <input  class="put" type="text"  value="其他世界军人运动会专有表达词汇缩写符号">
+                    </div>
+                    <div class="enable">
+                        <span style="color:red;float:left">*</span>
+                        <span style="float:left;"class="two">是否启用</span>
+                        <div class="checkbox">
+                            <input id="color-input-red" class="chat-button-location-radio-input" type="checkbox" name="color-input-red" checked="checked" />
+                            <label  for="color-input-red" style="float:left;"></label >
+                        </div>
+                    </div>
+                    <div class="isPreservation">
+                        <input type="button" class="preservation" id="btn" value="保存"></button>
+                        <input type="button" class="cancel" id="btn" value="取消"></button>
+                    </div>
+                </form>
+        </div>
+    </div>
+</body>
+<script>
+    $(function(){
+        //一级选项菜单显示、关闭
+        $('.first_ul_li').click(function(e){
+           $('.second_ul_li').click(function(e){
+            e.stopPropagation();//禁止冒泡事件
+           });
+           if(!$(this).hasClass('active')){
+               $(this).addClass('active');
+           }else{
+               $(this).removeClass('active');
+           }
+           var val=$.trim($(this).attr('name'));
+           $('.put').val(val);
+           $(this).find('.second_ul').toggle();
+        });
+        //二级选项菜单显示、关闭
+        $('.second_ul_li').click(function(e){
+            $('.third_ul_li').click(function(e){
+                e.stopPropagation();
+            });
+            if(!$(this).hasClass('active')){
+                $(this).addClass('active');
+            }else{
+                $(this).removeClass('active');
+            }
+            var val=$.trim($(this).attr('name'));
+            $('.put').val(val);
+            $(this).find('.third_ul').toggle();
+        });
+        //三级菜单点击
+        $('.third_ul_li').click(function(){
+            var val=$.trim($(this).attr('name'));
+            $('.put').val(val);
+        });
+
+        //保存、取消按钮
+        $('.preservation').focus(function(){
+            $(this).addClass('active');
+        });
+        $('.preservation').blur(function(){
+            $(this).removeClass('active');
+        });
+        $('.cancel').focus(function(){
+            $(this).addClass('active');
+        });
+        $('.cancel').blur(function(){
+            $(this).removeClass('active');
+        });
+        // //是否启用勾勾
+        // $('.check').click(function(){
+        //     if(!$(this).hasClass('fa-check-square')){
+        //         $(this).addClass('fa-check-square');
+        //         $(this).css('border','none');
+        //     }else{
+        //         $(this).removeClass('fa-check-square');
+        //         $(this).css('border','solid 1px rgb(221, 226, 243)');
+        //     }
+        // });
+        // //加号列表展示
+        // $('.show').click(function(){
+        //     $('.second_ul_li').click(function(e){
+        //     e.stopPropagation();//禁止冒泡事件
+        //    });
+        //     if($(this).hasClass('fa-plus-square')){
+        //         $(this).removeClass('fa-plus-square').addClass('fa-minus-square');
+        //         $('.second_ul').show();
+        //         $('.first_ul_li').addClass('active');
+        //     }else{
+        //         $(this).removeClass('fa-minus-square').addClass('fa-plus-square');
+        //         $('.second_ul').hide();
+        //         $('.first_ul_li').removeClass('active');
+        //     }
+        // });
+        // //当一级菜单显示时，加号变为减号，当一级菜单全部关闭时，减号变为加号
+        // $('.first_ul_li').click(function(){
+        //     if($('.first_ul_li').hasClass('active')){
+        //         $('.show').removeClass('fa-plus-square');
+        //         $('.show').addClass('fa-minus-square');
+        //     }else{
+        //         $('.show').removeClass('fa-minus-square');
+        //         $('.show').addClass('fa-plus-square');
+        //     }
+        // });
+    })
+	!function(){
+        $('.show').click(function(){
+            layer.open({
+                type: 2,
+                title:'新建保护项目信息',
+                area: ['500px', '300px'],
+                content: ['addProject.html','no'],
+                maxmin: true,
+                shadeClose:true,
+                fixed:false,
+                zIndex: layer.zIndex,
+                closeBtn: 1
+            });
+        });
+    }();
+</script>
+</html>

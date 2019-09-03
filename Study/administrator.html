@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>服务专员管理</title>
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-table.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-table.js"></script>
+    <script src="js/bootstrap-table-zh-CN.js"></script>
+    <script src="layer/layer.js"></script>
+    <style type="text/css">
+        .content{
+            width: 850px;
+            height: 400px;
+            margin: 0 auto;
+        }
+        #inp{
+            border-left: none;
+        }
+        th{
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="top_search" style="overflow:hidden;margin-top:20px;">
+            <div class="input-group" style="float:left;width:160px;" >
+                <i class="fa fa-search input-group-addon" style="background-color:white;"></i>
+                <input id="inp" class="form-control" type="text" style="width:185px;"placeholder="请输入姓名" name="key" id="">
+            </div>
+            <div style="float:left; margin-left:20px;">
+                <select style="width:132px;float:left;" class="form-control">
+                    <option>专项服务内容</option>
+                </select>
+            </div>
+            <div style="float:left;margin-left:20px;">
+                <button class="btn" style="background-color: rgb(62, 98, 165);color:white;">查找</button>
+            </div>
+            <div style="float:right;margin-left:20px;">
+                <button class="btn" id="btn1"style="background-color: rgb(62, 98, 165);color:white;">新建服务专员信息</button>
+            </div>
+        </div>
+        <div class="form" style="position:relative;margin-top:20px;">
+            <table class="table  table-bordered" style="text-align: center">
+                <thead style="background-color: rgb(62, 98, 165);color:white;">
+                    <tr>
+                        <th>ID</th>
+                        <th>姓名</th>
+                        <th>登录账号</th>
+                        <th>手机号码</th>
+                        <th>邮箱</th>
+                        <th>微信号</th>
+                        <th data-width="22%">专项服务内容</th>
+                        <th>用户状态</th>
+                        <th>操作</th>
+                    </tr>    
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>冯浩</td>
+                        <td>fenghao</td>
+                        <td>13545006400</td>
+                        <td>fh941005@163.com</td>
+                        <td>.</td>
+                        <td>按规定哈刚收到gas哈工大哈工大
+                            爱神的箭安徽的会计啊哈北师大
+                            爱空间四大皆空滑滑的两万多
+                        </td>
+                        <td>正常</td>
+                        <td><a href="">查看</a>
+                        <a href="">编辑</a>
+                        <a class="delete" href="javascript:;">删除</a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>冯浩</td>
+                        <td>fenghao</td>
+                        <td>13545006400</td>
+                        <td>fh941005@163.com</td>
+                        <td>.</td>
+                        <td></td>
+                        <td>正常</td>
+                        <td><a href="">查看</a>
+                        <a href="">编辑</a>
+                        <a class="delete" href="javascript:;">删除</a></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>冯浩</td>
+                        <td>fenghao</td>
+                        <td>13545006400</td>
+                        <td>fh941005@163.com</td>
+                        <td>.</td>
+                        <td></td>
+                        <td>正常</td>
+                        <td><a href="">查看</a>
+                        <a href="">编辑</a>
+                        <a class="delete" href="javascript:;">删除</a></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>冯浩</td>
+                        <td>fenghao</td>
+                        <td>13545006400</td>
+                        <td>fh941005@163.com</td>
+                        <td>.</td>
+                        <td></td>
+                        <td>正常</td>
+                        <td><a href="">查看</a>
+                        <a href="">编辑</a>
+                        <a class="delete" href="javascript:;">删除</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</body>
+<script>
+!function(){
+    $('#btn1').on('click',function(){
+        layer.open({
+            type: 2,
+            title:'新建专员信息',
+            area: ['700px', '500px'],
+            content: ['addAdmin.html', 'no'],
+            maxmin: true,
+            shadeClose:true,
+            fixed:false,
+            zIndex: layer.zIndex,
+            closeBtn: 1
+        });
+    }); 
+}();
+    $('.table').bootstrapTable({
+        striped: true,
+        pagination: true,
+        sidePagination: "client",
+        pageNumber: 1,
+        pageSize: 3,
+        pageList: [3, 6, 12, 24],
+        pagination: true,
+        height:400,
+        smartDisplay: true,
+        uniqueId: "ID"
+    });
+    $('.delete').click(function(){
+            layer.confirm('确定要删除该记录吗？', {
+                btn: ['确定', '取消'], //按钮
+                shade: [0.3, '#000'] //显示遮罩
+                ,title:'  '
+            }, function () {
+                layer.msg('爱你哟', { icon: 1,shade:  [0.3, '#000'] });
+            }, function () {
+                layer.msg('么么哒', { shift: 6,shade:  [0.3, '#000'] });
+            });
+        
+        });
+</script>
+</html>

@@ -1,0 +1,13 @@
+com\ciTreat\dicom\model\StudyModel.class
+com\ciTreat\dicom\handler\ImageHandler.class
+com\ciTreat\dicom\util\ParseImgFileData.class
+com\ciTreat\dicom\handler\InstanceHandler.class
+com\ciTreat\dicom\util\ConfigProperties.class
+com\ciTreat\dicom\util\ImageOrientation.class
+com\ciTreat\dicom\handler\PatientInfoHandler.class
+com\ciTreat\dicom\handler\SeriesDetailsHandler.class
+com\ciTreat\dicom\model\InstanceModel.class
+com\ciTreat\dicom\services\CDimseService.class
+com\ciTreat\dicom\util\InstanceComparator.class
+com\ciTreat\dicom\util\SeriesComparator.class
+com\ciTreat\dicom\model\SeriesModel.class

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ciTreat.prework.mapper.BeamInfoMapper">
+
+	<resultMap type="BeamInfo" id="BeamInfoResult">
+		<result property="patientId"       	column="PATIENT_ID"      />
+		<result property="patientName"      column="PATIENT_NAME"      />
+		<result property="planId"    		column="PLAN_ID"   />
+		<result property="treatHead"     	column="TREAT_HEAD"    />
+		<result property="energy"     		column="ENERGY"    />
+		<result property="ridgeFilter"     	column="RIDGE_FILTER"    />
+		<result property="rangeShifter"     column="RANGE_SHIFTER"      />
+		<result property="ic1CalibFactor"   column="IC1_CALIB_FACTOR"    />
+		<result property="ic2CalibFactor"   column="IC2_CALIB_FACTOR"    />
+		<result property="ic3CalibFactor"   column="IC3_CALIB_FACTOR"    />
+		<result property="createTime"     	column="CREATE_TIME"    />
+		<result property="updateTime"     	column="UPDATE_TIME"    />
+	</resultMap>
+	
+	
+	<select id="selectBeamInfoList" parameterType="BeamInfo" resultMap="BeamInfoResult">
+		SELECT PATIENT_ID, PATIENT_NAME, PLAN_ID, TREAT_HEAD, ENERGY, RIDGE_FILTER, RANGE_SHIFTER, IC1_CALIB_FACTOR, IC2_CALIB_FACTOR, IC3_CALIB_FACTOR, CREATE_TIME, UPDATE_TIME
+		FROM beam_info 
+		where PATIENT_ID = #{patientId}
+	</select>
+	
+	<select id="selectBeamInfoByIdPlan" parameterType="BeamInfo" resultMap="BeamInfoResult">
+		SELECT PATIENT_ID, PATIENT_NAME, PLAN_ID, TREAT_HEAD, ENERGY, RIDGE_FILTER, RANGE_SHIFTER, IC1_CALIB_FACTOR, IC2_CALIB_FACTOR, IC3_CALIB_FACTOR, CREATE_TIME, UPDATE_TIME
+		FROM beam_info 
+		where PATIENT_ID = #{patientId} and PLAN_ID = #{planId}
+	</select>
+	
+	<delete id="deleteBeamInfoByID" parameterType="Long">
+		delete  from beam_info where PATIENT_ID = #{patientId}
+	</delete>
+	
+	<insert id="insertBeamInfo" parameterType="BeamInfo">
+		insert into beam_info(
+ 			<if test="patientId != null and patientId != ''">PATIENT_ID,</if>
+ 			<if test="patientName != null and patientName != ''">PATIENT_NAME,</if>
+ 			<if test="planId != null and planId != ''">PLAN_ID,</if>
+ 			<if test="treatHead != null and treatHead != ''">TREAT_HEAD,</if>
+ 			<if test="energy != null and energy != ''">ENERGY,</if>
+ 			<if test="ridgeFilter != null and ridgeFilter != ''">RIDGE_FILTER,</if>
+ 			<if test="rangeShifter != null and rangeShifter != ''">RANGE_SHIFTER,</if>
+ 			<if test="ic1CalibFactor != null and ic1CalibFactor != ''">IC1_CALIB_FACTOR,</if>
+ 			<if test="ic2CalibFactor != null and ic2CalibFactor != ''">IC2_CALIB_FACTOR,</if>
+ 			<if test="ic3CalibFactor != null and ic3CalibFactor != ''">IC3_CALIB_FACTOR,</if>
+ 			CREATE_TIME
+ 		)values(
+ 			<if test="patientId != null and patientId != ''">#{patientId},</if>
+ 			<if test="patientName != null and patientName != ''">#{patientName},</if>
+ 			<if test="planId != null and planId != ''">#{planId},</if>
+ 			<if test="treatHead != null and treatHead != ''">#{treatHead},</if>
+ 			<if test="energy != null and energy != ''">#{energy},</if>
+ 			<if test="ridgeFilter != null and ridgeFilter != ''">#{ridgeFilter},</if>
+ 			<if test="rangeShifter != null and rangeShifter != ''">#{rangeShifter},</if>
+ 			<if test="ic1CalibFactor != null and ic1CalibFactor != ''">#{ic1CalibFactor},</if>
+ 			<if test="ic2CalibFactor != null and ic2CalibFactor != ''">#{ic2CalibFactor},</if>
+ 			<if test="ic3CalibFactor != null and ic3CalibFactor != ''">#{ic3CalibFactor},</if>
+ 			sysdate()
+ 		)
+	</insert>
+	
+	<update id="updateBeamInfoByID" parameterType="BeamInfo">
+ 		update beam_info 
+		<set>
+		    <if test="patientId != null and patientId != ''">PATIENT_ID = #{patientId},</if>
+            <if test="patientName != null and patientName != ''">PATIENT_NAME = #{patientName},</if>
+            <if test="planId != null and planId != ''">PLAN_ID = #{planId},</if>
+            <if test="treatHead != null and treatHead != ''">TREAT_HEAD = #{treatHead},</if>
+            <if test="energy != null and energy != ''">ENERGY = #{energy},</if>
+            <if test="ridgeFilter != null and ridgeFilter != ''">RIDGE_FILTER = #{ridgeFilter},</if>
+            <if test="rangeShifter != null and rangeShifter != ''">RANGE_SHIFTER = #{rangeShifter},</if>
+            <if test="ic1CalibFactor != null and ic1CalibFactor != ''">IC1_CALIB_FACTOR = #{ic1CalibFactor},</if>
+            <if test="ic2CalibFactor != null and ic2CalibFactor != ''">IC2_CALIB_FACTOR = #{ic2CalibFactor},</if>
+            <if test="ic3CalibFactor != null and ic3CalibFactor != ''">IC3_CALIB_FACTOR = #{ic3CalibFactor},</if>
+ 			update_time = sysdate()
+		</set>
+		where PATIENT_ID = #{patientId}
+	</update>
+	
+</mapper> 

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ciTreat.prework.mapper.BeamJnlDetailMapper">
+
+	<resultMap type="BeamJnlDetail" id="BeamJnlDetailResult">
+		<result property="patientId"       	column="PATIENT_ID"      />
+		<result property="patientName"      column="PATIENT_NAME"      />
+		<result property="planId"    		column="PLAN_ID"   />
+		<result property="operator"     	column="OPERATOR"    />
+		<result property="executeDate"     	column="EXECUTE_DATE"    />
+		<result property="preDose"     		column="PRE_DOSE"    />
+		<result property="reaDose"      	column="REA_DOSE"      />
+		<result property="ic1Num"       	column="IC1_NUM"      />
+		<result property="ic2Num"    		column="IC2_NUM"   />
+		<result property="ic3Num"     		column="IC3_NUM"    />
+		<result property="ic1CalibFactor"   column="IC1_CALIB_FACTOR"    />
+		<result property="ic2CalibFactor"   column="IC2_CALIB_FACTOR"    />
+		<result property="ic3CalibFactor"   column="IC3_CALIB_FACTOR"    />
+		<result property="createTime"     	column="CREATE_TIME"    />
+		<result property="updateTime"     	column="UPDATE_TIME"    />
+		<result property="beamNo"     		column="BEAM_NO"    />
+		<result property="status"     		column="STATUS"    />
+		<result property="taskId"     		column="TASKID"    />
+<!-- 		
+		<result property="taskComment"     	column="TASKCOMMENT"    />
+		<result property="taskState"     	column="TASKSTATE"    /> -->
+	</resultMap>
+	
+	
+	<select id="selectBeamJnlDetailList" parameterType="BeamJnlDetail" resultMap="BeamJnlDetailResult">
+		SELECT b.PATIENT_ID, b.PATIENT_NAME, b.PLAN_ID, b.OPERATOR, b.EXECUTE_DATE, b.PRE_DOSE, b.REA_DOSE, b.IC1_NUM, b.IC2_NUM, b.IC3_NUM, b.IC1_CALIB_FACTOR, b.IC2_CALIB_FACTOR, b.IC3_CALIB_FACTOR, b.CREATE_TIME, b.UPDATE_TIME, b.BEAM_NO,b.STATUS, b.TASKID
+		FROM BEAM_JNL_DETAIL b
+		where b.PATIENT_ID = #{patientId}
+	</select>
+	
+	<delete id="deleteBeamJnlDetailByID" parameterType="Long">
+		delete  from BEAM_JNL_DETAIL where BEAM_NO = #{beamNo}
+	</delete>
+	
+	<insert id="insertBeamJnlDetail2" parameterType="BeamJnlDetail">
+		insert into BEAM_JNL_DETAIL(PATIENT_ID,PRE_DOSE,REA_DOSE,BEAM_NO,STATUS,TASKID)values
+ 		(#{patientId},#{preDose},#{reaDose},#{beamNo},#{status},#{taskId})
+	</insert>
+	
+	<insert id="insertBeamJnlDetail" parameterType="BeamJnlDetail">
+		insert into BEAM_JNL_DETAIL(
+ 			<if test="patientId != null and patientId != ''">PATIENT_ID,</if>
+ 			<if test="patientName != null and patientName != ''">PATIENT_NAME,</if>
+ 			<if test="planId != null and planId != ''">PLAN_ID,</if>
+ 			<if test="operator != null and operator != ''">OPERATOR,</if>
+ 			<if test="executeDate != null and executeDate != ''">EXECUTE_DATE,</if>
+ 			<if test="preDose != null and preDose != ''">PRE_DOSE,</if>
+ 			<if test="reaDose != null and reaDose != ''">REA_DOSE,</if>
+ 			<if test="ic1Num != null and ic1Num != ''">IC1_NUM,</if>
+ 			<if test="ic2Num != null and ic2Num != ''">IC2_NUM,</if>
+ 			<if test="ic3Num != null and ic3Num != ''">IC3_NUM,</if>
+ 			<if test="ic1CalibFactor != null and ic1CalibFactor != ''">IC1_CALIB_FACTOR,</if>
+ 			<if test="ic2CalibFactor != null and ic2CalibFactor != ''">IC2_CALIB_FACTOR,</if>
+ 			<if test="ic3CalibFactor != null and ic3CalibFactor != ''">IC3_CALIB_FACTOR,</if>
+ 			<if test="beamNo != null and beamNo != ''">BEAM_NO,</if>
+ 			<if test="status != null and status != ''">STATUS,</if>
+ 			<if test="taskId != null and taskId != ''">TASKID,</if>
+ 			CREATE_TIME
+ 		)values(
+ 			<if test="patientId != null and patientId != ''">#{patientId},</if>
+ 			<if test="patientName != null and patientName != ''">#{patientName},</if>
+ 			<if test="planId != null and planId != ''">#{planId},</if>
+ 			<if test="operator != null and operator != ''">#{operator},</if>
+ 			<if test="executeDate != null and executeDate != ''">#{executeDate},</if>
+ 			<if test="preDose != null and preDose != ''">#{preDose},</if>
+ 			<if test="reaDose != null and reaDose != ''">#{reaDose},</if>
+ 			<if test="ic1Num != null and ic1Num != ''">#{ic1Num},</if>
+ 			<if test="ic2Num != null and ic2Num != ''">#{ic2Num},</if>
+ 			<if test="ic3Num != null and ic3Num != ''">#{ic3Num},</if>
+ 			<if test="ic1CalibFactor != null and ic1CalibFactor != ''">#{ic1CalibFactor},</if>
+ 			<if test="ic2CalibFactor != null and ic2CalibFactor != ''">#{ic2CalibFactor},</if>
+ 			<if test="ic3CalibFactor != null and ic3CalibFactor != ''">#{ic3CalibFactor},</if>
+ 			<if test="beamNo != null and beamNo != ''">#{beamNo},</if>
+ 			<if test="status != null and status != ''">#{status},</if>
+ 			<if test="taskId != null and taskId != ''">#{taskId},</if>
+ 			sysdate()
+ 		)
+	</insert>
+	
+	<update id="updateBeamBybeamNo" parameterType="BeamJnlDetail">
+ 		update beam_jnl_detail set TASKID = #{taskId},STATUS = #{status} where BEAM_NO = #{beamNo}
+	</update>
+	
+	<update id="updateBeamByTaskId" parameterType="BeamJnlDetail">
+ 		update beam_jnl_detail set REA_DOSE = #{reaDose},IC1_NUM = #{ic1Num},IC2_NUM = #{ic2Num},IC3_NUM = #{ic3Num},IC1_CALIB_FACTOR = #{ic1CalibFactor},IC2_CALIB_FACTOR = #{ic2CalibFactor},IC3_CALIB_FACTOR = #{ic3CalibFactor}
+ 		where TASKID = #{taskId}
+		
+	</update>
+	
+	<select id="selectBeamByTaskID" parameterType="String" resultMap="BeamJnlDetailResult">
+		SELECT b.PATIENT_ID, b.PATIENT_NAME, b.PLAN_ID, b.OPERATOR, b.EXECUTE_DATE, b.PRE_DOSE, b.REA_DOSE, b.IC1_NUM, b.IC2_NUM, b.IC3_NUM, b.IC1_CALIB_FACTOR, b.IC2_CALIB_FACTOR, b.IC3_CALIB_FACTOR, b.CREATE_TIME, b.UPDATE_TIME, b.BEAM_NO,b.STATUS, b.TASKID
+		FROM BEAM_JNL_DETAIL b
+		where b.TASKID = #{taskId}
+	</select>
+</mapper> 

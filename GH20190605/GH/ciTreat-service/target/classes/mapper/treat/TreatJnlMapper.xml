@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ciTreat.treat.mapper.TreatJnlMapper">
+
+	<resultMap type="TreatJnl" id="TreatJnlResult">
+		<result property="patientId"       	column="PATIENTID"      />
+		<result property="num"       		column="NUM"      />
+		<result property="taskCode"       	column="TASK_CODE"      />
+		<result property="busNo"      		column="BUS_NO"      />
+		<result property="status"    		column="STATUS"   />
+		<result property="startTime"       	column="START_TIME"      />
+		<result property="endTime"    		column="END_TIME"   />
+		<result property="contextInfo"    	column="CONTEXT_INFO"   />
+		<result property="taskId"    	column="TASK_ID"   />
+	</resultMap>
+	
+	<select id="selectTreatJnlList" parameterType="String" resultMap="TreatJnlResult">
+		SELECT PATIENTID, NUM, TASK_CODE, BUS_NO, STATUS, START_TIME, END_TIME ,TASK_ID FROM TREAT_JNL
+		where PATIENTID = #{patientId}
+	</select>
+	
+	<select id="selectTreatJnl" parameterType="TreatJnl" resultMap="TreatJnlResult">
+		SELECT PATIENTID, NUM, TASK_CODE, BUS_NO, STATUS, START_TIME, END_TIME, CONTEXT_INFO ,TASK_ID FROM TREAT_JNL
+		where BUS_NO = #{busNo}
+	</select>
+	
+	<select id="selectTreatJnlByTaskId" parameterType="TreatJnl" resultMap="TreatJnlResult">
+		SELECT PATIENTID, NUM, TASK_CODE, BUS_NO, STATUS, START_TIME, END_TIME, CONTEXT_INFO ,TASK_ID FROM TREAT_JNL
+		where TASK_ID = #{taskId}
+	</select>
+	
+	<insert id="insertTreatJnl" parameterType="TreatJnl" >
+ 		insert into TREAT_JNL(PATIENTID, NUM, BUS_NO, STATUS, START_TIME,TASK_ID) values 
+ 		(#{patientId},#{num},#{busNo},#{status},#{startTime},#{taskId})
+	</insert>
+	
+<!-- 	<update id="updateTreatJnl" parameterType="TreatJnl">
+ 		update TREAT_JNL set STATUS = #{status}, END_TIME = #{endTime} 
+ 		where TASK_CODE = #{taskCode} and BUS_NO = #{busNo}
+	</update> -->
+ 	
+ 		<update id="updateTreatJnl" parameterType="TreatJnl">
+ 		update TREAT_JNL 
+		<set>
+		    <if test="status != null and status != ''">STATUS = #{status},</if>
+            <if test="endTime != null and endTime != ''">END_TIME = #{endTime},</if>
+            <if test="taskId != null and taskId != ''">TASK_ID = #{taskId},</if>
+		</set>
+		where BUS_NO = #{busNo}
+	</update>
+	
+	
+	<delete id="deleteTreatJnlByBusNo" parameterType="TreatJnl">
+		delete from TREAT_JNL where BUS_NO = #{busNo}
+	</delete>
+ 	
+</mapper> 

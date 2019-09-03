@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="container-div">
+		<div class="row">
+       		 <div class="col-sm-12 select-table table-striped">
+	            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+	        </div>
+	    </div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script th:inline="javascript">
+		var datas = [[${@dict.getType('devRoomcheckStatus')}]];
+		var treatMentId=[[${treatMentId}]];
+		var prefix = ctx + "quality/dailyCheck";
+		$(function() {
+		    var options = {
+		    	url: prefix + "/flowmeterlist/"+treatMentId,
+		        columns: [{
+                    checkbox: true
+                },
+                 {
+		            field: 'flowMeterId',
+		            title: '流水ID',
+		            align: "left"
+		        },
+		        {
+		            field: 'createTime',
+		            title: '创建时间',
+		            align: "left"
+		        },
+		        {
+		            field: 'checkStatus',
+		            title: '治疗室状态',
+		            align: "left",
+		            formatter: function(value, row, index) {
+	                    return $.table.selectDictLabel(datas, value);
+	                 }
+		        },
+		        {
+		            field: 'treatMentId',
+		            title: '治疗室ID',
+		            align: "left"
+		        } 
+		        ]
+		    };
+		    $.table.init(options);
+		});
+		
+		
+	</script>
+</body>
+</html>

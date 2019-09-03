@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	
+	<div class="container-div">
+		<input id="taskSrlNum" name="taskSrlNum" type="hidden" th:value="${taskSrlNum}"> 
+		<div class="row">
+			
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	</body>
+</html>	
+<script th:inline="javascript">
+var prefix = ctx + "work/workjobjnl";
+$(function() {
+    var options = {
+        url: prefix + "/list/" + $("#taskSrlNum").val(),
+        sortName: "jobNo",
+        sortOrder: "asc",
+        modalName: "流程管理",
+        search: false,
+        showExport: false,
+        escape: true,
+        columns: [{
+            checkbox: false
+        },
+        {
+            field: 'taskCode',
+            title: '流程代码'
+        },
+        {
+            field: 'taskSrlNum',
+            title: '流程流水号'
+        },
+        {
+            field: 'jobNo',
+            title: '任务序号'
+        },
+        {
+            field: 'status',
+            title: '状态',
+        },
+        {
+            field: 'startTime',
+            title: '开始时间',
+        },
+        {
+            field: 'endTime',
+            title: '结束时间',
+        },
+        {
+            field: 'exInfo',
+            title: '异常信息',
+        }]
+    };
+    $.table.init(options);
+});
+   
+</script>
+

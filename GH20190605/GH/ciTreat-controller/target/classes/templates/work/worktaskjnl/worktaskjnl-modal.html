@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	
+	<div class="container-div">
+		<input id="patientId" name="patientId" th:value="${patientId}"> 
+		<div class="row">
+			
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	</body>
+</html>	
+	<script th:inline="javascript">
+		var prefix = ctx + "work/worktaskjnl";
+		$(function() {
+		    var options = {
+		        url: prefix + "/list/" + $("#patientId").val(),
+		        sortName: "startTime",
+		        sortOrder: "desc",
+		        modalName: "流程详情",
+		        search: false,
+		        showExport: false,
+		        escape: true,
+		        columns: [{
+		            checkbox: false
+		        },
+		        {
+		            field: 'taskCode',
+		            title: '流程代码'
+		        },
+		        {
+		            field: 'taskSrlNum',
+		            title: '流程流水号'
+		        },
+		        {
+		            field: 'status',
+		            title: '状态',
+		        },
+		        {
+		            field: 'startTime',
+		            title: '开始时间',
+		        },
+		        {
+		            field: 'endTime',
+		            title: '结束时间',
+		        }
+		        ]
+		    };
+		    $.table.init(options);
+		});
+	</script>

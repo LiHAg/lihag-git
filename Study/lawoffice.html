@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>律所管理</title>
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-table.css"> 
+	<script src="js/jquery.min.js"></script>
+    <script src="layer/layer.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-table.js"></script>
+    <script src="js/bootstrap-table-zh-CN.js"></script>
+    <style type="text/css">
+        .content{
+            width: 850px;
+            height:auto;
+            margin: 0 auto;
+        }
+        #inp{
+            border-left: none;
+        }
+        th{
+            text-align: center;
+        }
+        /* .dropdown-menu{
+            min-width: 132px;
+        }
+        .dropdown-menu li a{
+            text-align: center;
+        }
+        .dropdown-menu li a:hover{
+            color: #3e62a5; 
+        } */
+        select option:hover{
+            color: #3e62a5;
+            background-color: rgb(156, 150, 150);
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="top_search" style="height:34px;margin-top:20px;">
+            <div class="input-group" style="float:left;width:160px;" >
+                <i class="fa fa-search input-group-addon" style="background-color:white;"></i>
+                <input id="inp" class="form-control" type="text" style="width:185px;"placeholder="请输入律所名称" name="key" id="">
+            </div>
+            <div style="float:left; margin-left:20px;">
+                <select style="width:132px;float:left;" class="form-control">
+                    <option style="display:none;">律所状态</option>
+                    <option>正常</option>
+                    <option>停用</option>
+                </select>
+            </div>
+            <!-- <div class="btn-group" style="float:left; margin-left:20px;">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="width:132px;float:left;background-color:white;color:rgb(156, 152, 152);border:1px solid rgb(216, 211, 211);" value="">律所状态 
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu"  role="menu">
+                    <li><a href="#">正常</a></li>
+                    <li><a href="#">停用</a></li>
+                </ul> 
+            </div> -->
+            <div style="float:left;margin-left:20px;">
+                <button class="btn" style="background-color: rgb(62, 98, 165);color:white;">查找</button>
+            </div>
+            <div style="float:right;margin-left:20px;">
+                <input type="button"  class="btn" id="btn1" value="新建律所信息" style="background-color: rgb(62, 98, 165);color:white;">
+            </div>
+        </div>
+        <div class="form" style="position:relative;margin-top:20px;">
+            <table class="table  table-bordered" style="text-align: center">
+                <thead style="background-color: rgb(62, 98, 165);color:white;">
+                    <tr>
+                        <th>ID</th>
+                        <th>统一社会信用代码</th>
+                        <th data-width="18%">律所名称</th>
+                        <th>律所地址</th>
+                        <th>创建时间</th>
+                        <th>律所状态</th>
+                        <th data-width="14%">操作</th>
+                    </tr>    
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>3145215131153121N</td>
+                        <td>湖北九筹律师事务所</td>
+                        <td>捷安达感受到哈佛哈克较好的等
+                            哈回到家卡电话费</td>
+                        <td>2018-08-05
+                            01：39：49
+                        </td>
+                        <td>正常</td>
+                        <td><a href="">查看</a>
+                        <a href="">编辑</a>
+                        <a class="delete" href="javascript:;">删除</a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>3145215131153121N</td>
+                        <td>湖北九筹律师事务所</td>
+                        <td>捷安达感受到哈佛哈克较好的等
+                            哈回到家卡电话费</td>
+                        <td>2018-08-05
+                            01：39：49
+                        </td>
+                        <td>正常</td>
+                        <td><a href="">查看</a>
+                        <a href="">编辑</a>
+                        <a class="delete" href="javascript:;">删除</a></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>3145215131153121N</td>
+                        <td>湖北九筹律师事务所</td>
+                        <td>捷安达感受到哈佛哈克较好的等
+                            哈回到家卡电话费</td>
+                        <td>2018-08-05
+                            01：39：49
+                        </td>
+                        <td>正常</td>
+                        <td><a href="">查看</a>
+                        <a href="">编辑</a>
+                        <a class="delete" href="javascript:;">删除</a></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>3145215131153121N</td>
+                        <td>湖北九筹律师事务所</td>
+                        <td>捷安达感受到哈佛哈克较好的等
+                            哈回到家卡电话费</td>
+                        <td>2018-08-05
+                            01：39：49
+                        </td>
+                        <td>正常</td>
+                        <td><a href="">查看</a>
+                        <a href="">编辑</a>
+                        <a class="delete" href="javascript:;">删除</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+   !function(){
+        $('#btn1').on('click',function(){
+            layer.open({
+                type: 2,
+                title:'新建律所信息',
+                area: ['700px', '500px'],
+                content: 'addlaw.html',
+                maxmin: true,
+                shadeClose:true,
+                fixed:false,
+                zIndex: layer.zIndex,
+                closeBtn: 1
+            });
+        }); 
+    }();
+
+        $('.table').bootstrapTable({
+            striped: true,
+            pagination: true,
+            sidePagination: "client",
+            pageNumber: 1,
+            pageSize: 3,
+            pageList: [3, 6, 12, 24],
+            pagination: true,
+            height:400,
+            smartDisplay: true,
+            uniqueId: "ID"
+        });
+
+        $('.delete').click(function(){
+            layer.confirm('确定要删除该记录吗？', {
+                btn: ['确定', '取消'], //按钮
+                shade: [0.3, '#000'] //显示遮罩
+                ,title:'  '
+            }, function () {
+                layer.msg('爱你哟', { icon: 1,shade:  [0.3, '#000'] });
+            }, function () {
+                layer.msg('么么哒', { shift: 6,shade:  [0.3, '#000'] });
+            });
+        
+        });
+</script>
+</html>

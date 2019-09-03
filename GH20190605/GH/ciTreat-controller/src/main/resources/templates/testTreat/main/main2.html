@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link th:href="@{/ajax/libs/jquery-layout/jquery.layout-latest.css}" rel="stylesheet"/>
+<link th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
+
+<body class="gray-bg">
+	<div class="container-div ui-layout-center">
+		<div class="row">
+			<div class="col-sm-12 search-collapse" >
+				<form id="WorkJobJnl-form">
+					<input type="hidden" id="patientId" name="patientId" th:value="${patientId}">
+					<!-- <input type="hidden" id="taskSrlNum" name="taskSrlNum" th:value="${pj.taskSrlNum}"> -->
+	            </form>
+			
+			 	<div class="ibox-content" style="padding: 1px 1px 1px 1px;">
+					 <table class="table table-hover margin bottom" style="margin-bottom: 5px;">
+							<tr>
+                                 <td style="width: 100px">患者ID：</td><td id="patientId" th:text="${patientId}"></td>
+                                 <td style="width: 100px">患者姓名：</td><td th:text="${p.patientName}"></td>
+                                 <td style="width: 100px">性别：</td><td th:text="${p.sex}"></td>
+                                 <td>治疗室：</td><td >xxx</td>
+                             </tr>
+                             <tr>
+                                 <td>计划名称：</td><td ></td>
+                                 <td>计划时间：</td><td >xxx</td>
+                                 <td>计划信息：</td><td >xxx</td>
+                                 <td>计划信息：</td><td >xxx</td>
+                             </tr>
+                             <tr>
+                                 <td>总次数：</td><td th:text="${pj.totalNum}"></td>
+                                 <td>已治疗次数：</td><td id="num" th:text="${pj.treatedNum}"></td>
+                                 <td>总剂量：</td><td th:text="${p.totalDose}"></td>
+                                 <td>已治疗剂量：</td><td >xxx</td>
+                             </tr>
+                      </table>
+                  </div>
+			</div>
+			
+	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+	        	<a class="btn btn-success" onclick="doTask()" >
+	                <i class="fa fa-plus"></i> 新增治疗
+	            </a>
+	        </div>
+	        
+	        <div class="col-sm-12 select-table table-striped">
+			    <table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+	
+	<div th:include="include :: footer"></div>
+	<script th:src="@{/ajax/libs/jquery-layout/jquery.layout-latest.js}"></script>
+	<script th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
+	<script th:inline="javascript">
+		var datas = [[${@dict.getType('work_status')}]];
+		var patientId = [[${patientId}]];
+		var prefix = ctx + "patient/citreat/work";
+		var taskSrlNum = [[${pj.taskSrlNum}]];
+		
+		$(function() {
+		    var panehHidden = false;
+		    if ($(this).width() < 769) {
+		        panehHidden = true;
+		    }
+		    $('body').layout({ initClosed: panehHidden, west__size: 185 });
+		    taskList();
+		});
+
+		function doTask(){
+			console.log("taskSrlNum=" + taskSrlNum);
+			var doTaskUrl = prefix + "/dotask";
+			$.modal.confirm("确定新增治疗吗？", function() {
+				var data = { "pid": patientId,"tsn": taskSrlNum };
+           		$.operate.submit(doTaskUrl, "post", "json", data);
+        	});
+			
+			//setInterval(function() {
+			//	$.table.refresh();
+			//}, 5000);  //每隔1秒刷新table
+		}
+		
+		function taskList() {
+			var options = {
+			        //url: prefix2 + "/list/" + $("#patientId").text(),
+			        url: prefix + "/task/" + patientId,
+			        //sortName: "num",
+			        sortOrder: "desc",
+			        modalName: "治疗任务",
+			        search: false,
+			        escape: true,
+			        pageSize: 10,
+			        showSearch: false,
+			        showColumns: false,
+			        showToggle: false,
+			        showExport: false,
+			        
+			        columns: [{
+			            checkbox: false
+			        },
+			        {
+			            field: 'processName',
+			            title: '治疗代码'
+			        },
+			        {
+			            field: 'processId',
+			            title: '治疗流水号'
+			        },
+			        {
+			            field: '',
+			            title: '治疗期数',
+			        },
+			        {
+			            field: 'startedTime',
+			            title: '开始时间',
+			        },
+			        {
+			            field: 'completedTime',
+			            title: '结束时间',
+			        },
+			        {
+			         	 field: 'processState',
+				         title: '状态',
+				         align: 'center',
+		                 formatter: function(value, row, index) {
+		                    return $.table.selectDictLabel(datas, value);
+		                 }
+			        },
+			        {
+			            title: '操作',
+			            align: 'center',
+			            formatter: function(value, row, index) {
+			                var actions = [];
+			                actions.push('<a class="btn btn-info btn-xs " href="#" onclick="detail(\'' + row.taskCode + '\',\'' + row.taskSrlNum + '\')"><i class="fa fa-list-ul"></i>作业信息</a> ');
+			                return actions.join('');
+			            }
+			        }]
+			    };
+		    $.table.init(options);
+		}
+		
+		function doTask(){
+			//console.log("taskSrlNum=" + taskSrlNum);
+			var doTaskUrl = "treat/work/dotask";
+			$.modal.confirm("确定新增治疗吗？", function() {
+				var data = { "pid": patientId,"tsn": taskSrlNum };
+           		$.operate.submit(doTaskUrl, "post", "json", data);
+        	});
+			
+			//setInterval(function() {
+			//	$.table.refresh();
+			//}, 5000);  //每隔1秒刷新table
+		}
+	
+		
+	</script>
+</body>
+</html>

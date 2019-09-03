@@ -1,0 +1,19 @@
+<configuration>
+   <servers>
+      <server>
+         <logicalname>AAA</logicalname>
+         <aetitle>DCM4CHEE</aetitle>
+         <hostname>localhost</hostname>
+         <port>11112</port>
+         <retrieve>WADO</retrieve>
+         <wadocontext>wado</wadocontext>
+         <wadoport>8081</wadoport>
+         <previews>false</previews>
+         <imageType>JPEG</imageType>
+      </server>
+   </servers>
+   <listener>
+      <aetitle>KING</aetitle>
+      <port>1022</port>
+   </listener>
+</configuration>
