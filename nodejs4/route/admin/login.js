@@ -2,7 +2,7 @@ const express=require('express');
 const common=require('../../libs/common');
 const mysql=require('mysql');
 
-var db=mysql.createPool({host: 'localhost', user: 'root', password: 'root',port:'3309', database: 'learn'});
+var db=mysql.createPool({host: 'localhost', user: 'root', password: 'root',port:'3306', database: 'learn'});
 
 module.exports=function (){
   var router=express.Router();
